@@ -17,6 +17,9 @@ import OrDivider from "../Components/LoginScreenComponents/OrDivider";
 import ConnectWithFacebookButton from "../Components/LoginScreenComponents/ConnectWithFacebookButton";
 import SimpleDivider from "../Components/LoginScreenComponents/SimpleDivider";
 import SignUpButton from "../Components/LoginScreenComponents/SignUpButton";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParams } from "../Navigator/StackNavigator";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -24,6 +27,7 @@ const LoginScreen = () => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [EmailInputIsEmpty, setEmailInputState] = useState(true); // for the password input
   const [LoginStatus, SetLoginStatus] = useState(true); // first the login button is disabled till password & email is completed
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
 
   useEffect(() => {
     if (email === "" || email.length < 3) setEmailInputState(true);
