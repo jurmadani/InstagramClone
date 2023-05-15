@@ -1,4 +1,9 @@
-import { View, Text, TouchableWithoutFeedback } from "react-native";
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  useColorScheme,
+} from "react-native";
 import React from "react";
 import { Input } from "@ui-kitten/components";
 import { windowWidth } from "../../Constants/Dimensions";
@@ -10,7 +15,7 @@ interface PasswordInputProps {
   setSecureTextEntry: React.Dispatch<React.SetStateAction<boolean>>;
   value: string;
   onChangeText: (text: string) => void;
-  EmailInputIsEmpty:boolean;
+  EmailInputIsEmpty: boolean;
 }
 
 const PasswordInput = ({
@@ -18,7 +23,7 @@ const PasswordInput = ({
   setSecureTextEntry,
   value,
   onChangeText,
-  EmailInputIsEmpty
+  EmailInputIsEmpty,
 }: PasswordInputProps) => {
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
@@ -29,10 +34,12 @@ const PasswordInput = ({
       <EntypoIcon
         name={secureTextEntry ? "eye-with-line" : "eye"}
         size={22}
-        color="#C8C8C8  "
+        color="#C8C8C8"
       />
     </TouchableWithoutFeedback>
   );
+  const theme = useColorScheme();
+  const isDarkTheme = theme === "dark";
   return (
     <View style={{ marginTop: 10 }}>
       <Input
@@ -43,7 +50,14 @@ const PasswordInput = ({
         onChangeText={onChangeText}
         accessoryRight={EyeIcon}
         disabled={EmailInputIsEmpty}
-        style={{ width: windowWidth - 20, backgroundColor: "#FAFAFA" }}
+        style={{
+          width: windowWidth - 20,
+          borderColor: isDarkTheme ? "#414141" : "#E1E1E1",
+          backgroundColor: isDarkTheme ? "#121212" : "#FAFAFA",
+        }}
+        textStyle={{
+          color: isDarkTheme ? "white" : "black",
+        }}
       />
     </View>
   );

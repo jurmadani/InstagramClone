@@ -1,9 +1,10 @@
-import { View, Text, Dimensions, Image } from "react-native";
+import { View, Text, Dimensions, Image, useColorScheme } from "react-native";
 import React from "react";
-//@ts-expect-error
-import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 
 const LockIcon = () => {
+  const theme = useColorScheme();
+  const isDarkTheme = theme === "dark";
+
   return (
     //A circle view
     <View
@@ -17,12 +18,17 @@ const LockIcon = () => {
         justifyContent: "center",
         alignItems: "center",
         borderWidth: 2,
+        borderColor: isDarkTheme ? "white" : "black",
       }}
     >
       {/* The lock icon */}
       <Image
         source={require("../../assets/Icons/lock.png")}
-        style={{ height: 60, width: 60 }}
+        style={{
+          height: 60,
+          width: 60,
+          tintColor: isDarkTheme ? "white" : "black",
+        }}
       />
     </View>
   );
