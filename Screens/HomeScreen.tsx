@@ -8,6 +8,7 @@ import {
 import React, { useState } from "react";
 import StoryBoard from "../Components/HomeScreenComponents/StoryBoard";
 import { Divider } from "@ui-kitten/components";
+import InstagramPost from "../Components/HomeScreenComponents/InstagramPost";
 
 const HomeScreen = () => {
   const theme = useColorScheme();
@@ -26,11 +27,17 @@ const HomeScreen = () => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
+      showsVerticalScrollIndicator={false}
     >
       {/* Story board grid */}
       <StoryBoard />
       {/* Divider between feed posts and story board */}
       <Divider style={{ marginTop: 8, height: 1 }} />
+      {/* Posts */}
+      <InstagramPost />
+      <InstagramPost />
+      <InstagramPost />
+      <InstagramPost />
     </ScrollView>
   );
 };

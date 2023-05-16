@@ -29,6 +29,7 @@ const Stack = createNativeStackNavigator<StackParams>();
 const StackNavigator = () => {
   return (
     <Stack.Navigator>
+      
       <Stack.Screen
         name="BottomTabNav"
         component={BottomTabNavigator}
