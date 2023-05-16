@@ -10,7 +10,7 @@ import PostFooter from "./PostFooter";
 
 const InstagramPost = () => {
   return (
-    <View>
+    <View style={{marginTop:5,}}>
       {/* Post header */}
       <PostHeader />
       {/* Content */}

@@ -9,6 +9,7 @@ import AddPostScreen from "../Screens/AddPostScreen";
 import ReelsScreen from "../Screens/ReelsScreen";
 import ProfileScreen from "../Screens/ProfileScreen";
 import HomeScreenHeader from "../Components/HomeScreenComponents/HomeScreenHeader";
+import ProfileScreenHeader from "../Components/ProfileScreenComponents/ProfileScreenHeader";
 
 export type BottomTabParams = {
   Home: any;
@@ -64,7 +65,11 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Add" component={AddPostScreen} />
       <Tab.Screen name="Reels" component={ReelsScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ header: () => <ProfileScreenHeader /> }}
+      />
     </Tab.Navigator>
   );
 };

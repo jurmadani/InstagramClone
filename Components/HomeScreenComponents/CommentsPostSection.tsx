@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { Avatar } from "@ui-kitten/components";
+import { Avatar, Divider } from "@ui-kitten/components";
 
 const CommentsPostSection = () => {
   return (
