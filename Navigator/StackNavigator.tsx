@@ -6,10 +6,12 @@ import HomeScreenHeader from "../Components/HomeScreenComponents/HomeScreenHeade
 import BottomTabNavigator from "./BottomTabNavigator";
 import MessagesScreen from "../Screens/MessagesScreen";
 import MessagesScreenHeader from "../Components/MessagesScreenComponents/MessagesScreenHeader";
+import SignupScreen from "../Screens/SignupScreen";
 
 export type StackParams = {
   Login: any;
   ForgotPassword: any;
+  Signup: any;
   BottomTabNav: any;
   Messages: any;
 };
@@ -27,12 +29,24 @@ const Stack = createNativeStackNavigator<StackParams>();
         component={ForgotPasswordScreen}
         options={{ headerShown: false }}
       />
+        <Stack.Screen
+        name="BottomTabNav"
+        component={BottomTabNavigator}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Messages"
+        component={MessagesScreen}
+        options={{ header: () => <MessagesScreenHeader /> }}
+      />
+
+        const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
 */
 
 const StackNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen
+           <Stack.Screen
         name="BottomTabNav"
         component={BottomTabNavigator}
         options={{ headerShown: false }}
