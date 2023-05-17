@@ -12,10 +12,14 @@ import InstagramTextLogoHeader from "./InstagramTextLogo";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 //@ts-expect-error
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
+import { StackParams } from "../../Navigator/StackNavigator";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const HomeScreenHeader = () => {
   const theme = useColorScheme();
   const isDarkTheme = theme === "dark";
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
 
   const HeartIcon = () => (
     <TouchableOpacity style={{ marginRight: 19 }}>
@@ -28,7 +32,7 @@ const HomeScreenHeader = () => {
   );
 
   const MessagesIcon = () => (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("Messages")}>
       <Image
         source={require("../../assets/Icons/facebook-messenger.png")}
         style={{
