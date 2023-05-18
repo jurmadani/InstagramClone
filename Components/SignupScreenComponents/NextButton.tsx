@@ -2,6 +2,8 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { windowWidth } from "../../Constants/Dimensions";
 import { Button } from "@ui-kitten/components";
+import { useDispatch, useSelector } from "react-redux";
+import { SignupProcessSlice } from "../../Redux/SignupProcessSlice";
 
 interface NextButtonProps {
   placeholder: string;
@@ -9,6 +11,11 @@ interface NextButtonProps {
 }
 
 const NextButton = ({ placeholder, width }: NextButtonProps) => {
+  const dispatch = useDispatch();
+  const currentScreen = useSelector(
+    //@ts-expect-error
+    (state) => state.SignupProcess.currentScreen
+  );
   return (
     <View style={{ alignSelf: "center" }}>
       <Button
@@ -19,6 +26,11 @@ const NextButton = ({ placeholder, width }: NextButtonProps) => {
           marginTop: 20,
         }}
         size="large"
+        onPress={() =>
+          dispatch(
+            SignupProcessSlice.actions.setCurrentScreen(currentScreen + 1)
+          )
+        }
       >
         {placeholder}
       </Button>

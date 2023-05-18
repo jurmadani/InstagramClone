@@ -1,9 +1,19 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { SignupProcessSlice } from "../../../Redux/SignupProcessSlice";
 
 const ChangeUsernameButton = () => {
+  const dispatch = useDispatch();
+  const currentScreen = useSelector(
+    //@ts-expect-error
+    (state) => state.SignupProcess.currentScreen
+  );
   return (
-    <TouchableOpacity style={{ marginTop: 15 }}>
+    <TouchableOpacity
+      style={{ marginTop: 15 }}
+      onPress={() => dispatch(SignupProcessSlice.actions.setCurrentScreen(4))}
+    >
       <View>
         <Text style={{ color: "#118EE3", fontWeight: "bold" }}>
           Change username
