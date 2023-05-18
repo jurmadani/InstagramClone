@@ -9,7 +9,8 @@ export const SignupProcessSlice = createSlice({
   initialState,
   reducers: {
     setCurrentScreen: (state, action) => {
-      state.currentScreen = action.payload;
+      if (action.payload === 5) console.log("sign up process completed");
+      else state.currentScreen = action.payload;
     },
   },
 });

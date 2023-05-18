@@ -26,11 +26,14 @@ const NextButton = ({ placeholder, width }: NextButtonProps) => {
           marginTop: 20,
         }}
         size="large"
-        onPress={() =>
-          dispatch(
-            SignupProcessSlice.actions.setCurrentScreen(currentScreen + 1)
-          )
-        }
+        onPress={() => {
+          if (currentScreen === 3)
+            dispatch(SignupProcessSlice.actions.setCurrentScreen(5));
+          else
+            dispatch(
+              SignupProcessSlice.actions.setCurrentScreen(currentScreen + 1)
+            );
+        }}
       >
         {placeholder}
       </Button>
