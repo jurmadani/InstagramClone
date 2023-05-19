@@ -20,7 +20,9 @@ const LoginButton = ({ ButtonStatus }: LoginButtonProps) => {
         }}
         size="large"
         disabled={ButtonStatus ? true : false}
-        onPress={() => console.log("login test")}
+        onPress={() =>
+          console.log('login')
+        }
       >
         Log in
       </Button>

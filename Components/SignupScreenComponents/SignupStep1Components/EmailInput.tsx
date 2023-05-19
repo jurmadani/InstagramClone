@@ -5,7 +5,7 @@ import { windowWidth } from "../../../Constants/Dimensions";
 
 const EmailInput = () => {
   return (
-    <View style={{ alignSelf: "center", marginTop: 20, }}>
+    <View style={{ alignSelf: "center", marginTop: 20 }}>
       <Input
         placeholder="Email"
         size="large"

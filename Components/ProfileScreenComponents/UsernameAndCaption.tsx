@@ -7,7 +7,9 @@ const UsernameAndCaption = () => {
       {/* Username */}
       <Text style={{ fontWeight: "600", fontSize: 15 }}>Daniel Jurma</Text>
       {/* description */}
-      <Text style={{marginTop:5,}}>Digital goodies designer @pixsellz Everything is designed.</Text>
+      <Text style={{ marginTop: 5 }}>
+        Digital goodies designer @pixsellz Everything is designed.
+      </Text>
     </View>
   );
 };
