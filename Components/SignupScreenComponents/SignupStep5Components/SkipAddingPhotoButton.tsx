@@ -46,6 +46,9 @@ const SkipAddingPhotoButton = () => {
           username: currentUserInformation.username,
           fullName: currentUserInformation.fullName,
           profilePictureURL: url,
+          followers: 0,
+          following: 0,
+          posts: 0,
         });
       //set user global state
       dispatch(
@@ -54,6 +57,9 @@ const SkipAddingPhotoButton = () => {
           fullName: currentUserInformation.fullName,
           profilePictureURL: url,
           username: currentUserInformation.username,
+          followers: 0,
+          following: 0,
+          posts: 0,
         })
       );
       //navigate to homescreen

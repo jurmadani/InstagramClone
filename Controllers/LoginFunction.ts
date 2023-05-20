@@ -28,13 +28,15 @@ export async function LoginFunction(
                     email: user.data().email,
                     fullName: user.data().fullName,
                     profilePictureURL: user.data().profilePictureURL,
-                    username: user.data().username
+                    username: user.data().username,
+                    followers: user.data().followers,
+                    following: user.data().following,
+                    posts: user.data().posts
                 }))
         });
         //navigate to homescreen
-
         navigation.navigate('BottomTabNav')
-
+        console.log('The user has sucessfully logged in')
         //try to login the user with credentials
     } catch (error) {
         //@ts-ignores

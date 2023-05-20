@@ -1,8 +1,14 @@
 import { View, Text, Image, TouchableOpacity, Platform } from "react-native";
 import React from "react";
 import { Avatar } from "@ui-kitten/components";
+import { useSelector } from "react-redux";
 
 const AddStoryImage = () => {
+  //get the user global state
+  const user = useSelector(
+    //@ts-expect-error
+    (state) => state.User.user
+  );
   return (
     <TouchableOpacity style={{ margin: Platform.OS === "android" ? 5 : 0 }}>
       <View
@@ -17,7 +23,7 @@ const AddStoryImage = () => {
             width: 68,
             marginTop: 5,
           }}
-          source={require("../../assets/Images/dummy-picture.jpg")}
+          source={{ uri: user.profilePictureURL }}
         />
         <View
           style={{

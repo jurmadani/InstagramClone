@@ -4,11 +4,6 @@ import AddStoryImage from "./AddStoryImage";
 import { People } from "../../dummy-test-data";
 import NormalStoryImage from "./NormalStoryImage";
 
-/*
- {People.map((item) => (
-        <NormalStoryImage item={item} />
-      ))}
-*/
 
 const StoryBoard = () => {
   return (

@@ -1,12 +1,17 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 import { Avatar } from "@ui-kitten/components";
+import { useSelector } from "react-redux";
 
 const UserProfilePicture = () => {
+  const user = useSelector(
+    //@ts-expect-error
+    (state) => state.User.user
+  );
   return (
     <View style={{ margin: 20 }}>
       <Avatar
-        source={require("../../assets/Images/dummy-picture.jpg")}
+        source={{uri:user.profilePictureURL}}
         style={{ height: 90, width: 90 }}
       />
       <View
