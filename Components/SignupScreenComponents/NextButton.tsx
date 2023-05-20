@@ -9,6 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParams } from "../../Navigator/StackNavigator";
 import SettingUpModal from "./SignupStep5Components/SettingUpModal";
+import { UserSlice } from "../../Redux/User";
 
 interface NextButtonProps {
   placeholder: string;
@@ -285,15 +286,22 @@ const NextButton = ({
               fullName: currentUserInformation.fullName,
               profilePictureURL: url,
             });
+          //set user global state
+          dispatch(
+            UserSlice.actions.setUser({
+              email: currentUserInformation.email,
+              fullName: currentUserInformation.fullName,
+              profilePictureURL: url,
+              username: currentUserInformation.username,
+            })
+          );
+          //navigate to homescreen
+          navigation.navigate("BottomTabNav");
         } catch (error) {
           console.log(error);
         }
         setModalLoading(false);
-        //navigate to homescreen and set the currentUesr global state to the new user
-        //....
-        break;
-      //finish sign up with the default profile picture
-      case "FinishSignupWithUserChosenAvatar":
+
         break;
     }
   };

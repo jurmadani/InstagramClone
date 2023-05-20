@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { firebase } from "../firebase";
 
 const initialState = {
   currentScreen: 1,

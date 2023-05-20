@@ -1,13 +1,23 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, ActivityIndicator } from "react-native";
+import React, { useState } from "react";
 import { Button } from "@ui-kitten/components";
 import { windowWidth } from "../../Constants/Dimensions";
+import { LoginFunction } from "../../Controllers/LoginFunction";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParams } from "../../Navigator/StackNavigator";
 
 interface LoginButtonProps {
   ButtonStatus: boolean;
+  email: string;
+  password: string;
 }
 
-const LoginButton = ({ ButtonStatus }: LoginButtonProps) => {
+const LoginButton = ({ ButtonStatus, email, password }: LoginButtonProps) => {
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
   return (
     <View>
       <Button
@@ -21,10 +31,10 @@ const LoginButton = ({ ButtonStatus }: LoginButtonProps) => {
         size="large"
         disabled={ButtonStatus ? true : false}
         onPress={() =>
-          console.log('login')
+          LoginFunction(email, password, setLoading, dispatch, navigation)
         }
       >
-        Log in
+        {loading ? <ActivityIndicator color="white" /> : "Log in"}
       </Button>
     </View>
   );

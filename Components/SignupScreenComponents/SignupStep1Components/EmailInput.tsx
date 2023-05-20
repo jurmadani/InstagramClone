@@ -40,9 +40,7 @@ const EmailInput = ({ value, onChange }: EmailInputProps) => {
           marginLeft: 2,
         }}
       >
-        {InputErrorStatus.errorCode === -1
-          ? ''
-          : InputErrorStatus.errorMessage}
+        {InputErrorStatus.errorCode === -1 ? "" : InputErrorStatus.errorMessage}
       </Text>
     </View>
   );

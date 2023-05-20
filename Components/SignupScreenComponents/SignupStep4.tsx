@@ -5,14 +5,10 @@ import UsernameInput from "./SignupStep4Components/UsernameInput";
 import NextButton from "./NextButton";
 import BackToLoginButton from "./SignupStep1Components/BackToLoginButton";
 import { Divider } from "@ui-kitten/components";
-import { useSelector } from "react-redux";
 
 const SignupStep4 = () => {
   const [newUsername, setNewUsername] = useState("");
-  const usernameInputError = useSelector(
-    //@ts-expect-error
-    (state) => state.SignupProcess.usernameInputError
-  );
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}

@@ -72,7 +72,11 @@ const LoginScreen = () => {
           {/* Forgot password button */}
           <ForgotPasswordButton />
           {/* Login button */}
-          <LoginButton ButtonStatus={LoginStatus} />
+          <LoginButton
+            ButtonStatus={LoginStatus}
+            email={email}
+            password={password}
+          />
           {/* Divider */}
           <OrDivider />
           {/* Connect with facebook button */}

@@ -2,15 +2,22 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import SettingUpModal from "./SettingUpModal";
 import { firebase } from "../../../firebase";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { UserSlice } from "../../../Redux/User";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParams } from "../../../Navigator/StackNavigator";
 
 const SkipAddingPhotoButton = () => {
   const [modalLoading, setModalLoading] = useState(false);
+  const dispatch = useDispatch();
   //get redux current information
   const currentUserInformation = useSelector(
     //@ts-expect-error
     (state) => state.SignupProcess.currentUserInformation
   );
+  //navigation hook
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
 
   const HandleOnPressForSkipButton = async () => {
     //set modal loading activity to true
@@ -40,6 +47,17 @@ const SkipAddingPhotoButton = () => {
           fullName: currentUserInformation.fullName,
           profilePictureURL: url,
         });
+      //set user global state
+      dispatch(
+        UserSlice.actions.setUser({
+          email: currentUserInformation.email,
+          fullName: currentUserInformation.fullName,
+          profilePictureURL: url,
+          username: currentUserInformation.username,
+        })
+      );
+      //navigate to homescreen
+      navigation.navigate("BottomTabNav");
     } catch (error) {
       console.log(error);
     }
