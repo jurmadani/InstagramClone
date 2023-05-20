@@ -31,7 +31,8 @@ export async function LoginFunction(
                     username: user.data().username,
                     followers: user.data().followers,
                     following: user.data().following,
-                    posts: user.data().posts
+                    posts: user.data().posts,
+                    description: user.data().description
                 }))
         });
         //navigate to homescreen
