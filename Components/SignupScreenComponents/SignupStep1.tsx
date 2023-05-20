@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import UserIcon from "./SignupStep1Components/UserIcon";
 import EmailInput from "./SignupStep1Components/EmailInput";
 import NextButton from "./NextButton";
@@ -8,12 +8,13 @@ import { Divider } from "@ui-kitten/components";
 import { windowHeight } from "../../Constants/Dimensions";
 
 const SignupStep1 = () => {
+  const [email, setEmail] = useState("");
   return (
     <SafeAreaView>
       {/* Icon */}
       <UserIcon />
       {/* Email input */}
-      <EmailInput />
+      <EmailInput value={email} onChange={setEmail} />
       {/* Description text */}
       <Text
         style={{
@@ -27,9 +28,13 @@ const SignupStep1 = () => {
         time.
       </Text>
       {/* Next button */}
-      <NextButton placeholder="Next" />
+      <NextButton
+        placeholder="Next"
+        actionType="CheckIfEmailAvailable"
+        actionPayload={{ email: email }}
+      />
       {/* Footer */}
-      <Divider style={{ height: 1, top: windowHeight / 2.6 }} />
+      <Divider style={{ height: 1, top: windowHeight / 2.8 }} />
       <BackToLoginButton />
     </SafeAreaView>
   );

@@ -1,12 +1,32 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { windowHeight, windowWidth } from "../../Constants/Dimensions";
 import NextButton from "./NextButton";
 import ChangeUsernameButton from "./SignupStep3Components/ChangeUsernameButton";
 import BackToLoginButton from "./SignupStep1Components/BackToLoginButton";
 import { Divider } from "@ui-kitten/components";
+import { useSelector } from "react-redux";
 
 const SignupStep3 = () => {
+  const currentUserInformation = useSelector(
+    //@ts-expect-error
+    (state) => state.SignupProcess.currentUserInformation
+  );
+
+  //create a random username function
+  function stripWhitespaceAndLowerCase(str: string) {
+    return str.replace(/\s/g, "").toLowerCase();
+  }
+  const randomNumber = Math.floor(1000 + Math.random() * 9000);
+  const [username, setUsername] = useState("");
+  //create a random user when component mounts
+  useEffect(() => {
+    const randomUsername =
+      stripWhitespaceAndLowerCase(currentUserInformation.fullName) +
+      randomNumber;
+    setUsername(randomUsername);
+  }, []);
+
   return (
     <View style={{ alignItems: "center", marginTop: 100 }}>
       {/* Header text */}
@@ -14,7 +34,7 @@ const SignupStep3 = () => {
         WELCOME TO INSTAGRAM,
       </Text>
       {/* User username */}
-      <Text style={{ fontWeight: "bold", fontSize: 16 }}>d.jurma</Text>
+      <Text style={{ fontWeight: "bold", fontSize: 16 }}>{username}</Text>
       {/* Description text */}
       <Text
         style={{
@@ -28,7 +48,14 @@ const SignupStep3 = () => {
         username at any time.
       </Text>
       {/* Next button */}
-      <NextButton placeholder="Next" width={windowWidth - 60} />
+      <NextButton
+        placeholder="Next"
+        width={windowWidth - 60}
+        actionType="ContinueSignupProcessWithRandomUsername"
+        actionPayload={{
+          username: username,
+        }}
+      />
       {/* Change username button */}
       <ChangeUsernameButton />
       {/* Footer description */}

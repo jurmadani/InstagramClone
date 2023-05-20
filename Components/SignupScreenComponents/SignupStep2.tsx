@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import FullNameInput from "./SignupStep2Components/FullNameInput";
 import PasswordInput from "./SignupStep2Components/PasswordInput";
 import NextButton from "./NextButton";
@@ -8,6 +8,8 @@ import BackToLoginButton from "./SignupStep1Components/BackToLoginButton";
 import { Divider } from "@ui-kitten/components";
 
 const SignupStep2 = () => {
+  const [fullName, setFullName] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <SafeAreaView style={{}}>
       {/* Header text */}
@@ -22,11 +24,16 @@ const SignupStep2 = () => {
         NAME AND PASSWORD
       </Text>
       {/* Full name input */}
-      <FullNameInput />
+      <FullNameInput value={fullName} onChange={setFullName} />
       {/* Password input */}
-      <PasswordInput />
+      <PasswordInput value={password} onChange={setPassword} />
       {/* Continue button */}
-      <NextButton placeholder="Continue" width={windowWidth - 60} />
+      <NextButton
+        placeholder="Continue"
+        width={windowWidth - 60}
+        actionType="NameAndPassword"
+        actionPayload={{ fullName: fullName, password: password }}
+      />
       {/* Description text */}
       <View style={{ alignItems: "center" }}>
         <Text
@@ -34,7 +41,7 @@ const SignupStep2 = () => {
             opacity: 0.3,
             textAlign: "center",
             width: windowWidth - 30,
-            top: windowHeight / 2.3,
+            top: windowHeight / 2.6,
           }}
         >
           Your contacts will be periodically synced and stored on Instagram
@@ -43,8 +50,8 @@ const SignupStep2 = () => {
         </Text>
       </View>
       {/* Back to login button */}
-      <Divider style={{ top: windowHeight / 2.20}} />
-      <BackToLoginButton top={windowHeight / 2.1} />
+      <Divider style={{ top: windowHeight / 2.5}} />
+      <BackToLoginButton top={windowHeight / 2.4} />
     </SafeAreaView>
   );
 };

@@ -5,10 +5,7 @@ import { SignupProcessSlice } from "../../../Redux/SignupProcessSlice";
 
 const ChangeUsernameButton = () => {
   const dispatch = useDispatch();
-  const currentScreen = useSelector(
-    //@ts-expect-error
-    (state) => state.SignupProcess.currentScreen
-  );
+
   return (
     <TouchableOpacity
       style={{ marginTop: 15 }}
