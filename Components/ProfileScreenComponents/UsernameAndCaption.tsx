@@ -1,15 +1,18 @@
 import { View, Text } from "react-native";
 import React from "react";
+import { useSelector } from "react-redux";
 
 const UsernameAndCaption = () => {
+  const user = useSelector(
+    //@ts-expect-error
+    (state) => state.User.user
+  );
   return (
     <View style={{ marginLeft: 20 }}>
-      {/* Username */}
-      <Text style={{ fontWeight: "600", fontSize: 15 }}>Daniel Jurma</Text>
+      {/* Full name */}
+      <Text style={{ fontWeight: "600", fontSize: 15 }}>{user.fullName}</Text>
       {/* description */}
-      <Text style={{ marginTop: 5 }}>
-        Digital goodies designer @pixsellz Everything is designed.
-      </Text>
+      <Text style={{ marginTop: 5 }}>{user.description}</Text>
     </View>
   );
 };

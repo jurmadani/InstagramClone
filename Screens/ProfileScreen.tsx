@@ -1,15 +1,61 @@
-import { View, Text, ScrollView } from "react-native";
-import React from "react";
+import { View, Text, ScrollView, RefreshControl } from "react-native";
+import React, { useState } from "react";
 import UserProfilePicture from "../Components/ProfileScreenComponents/UserProfilePicture";
 import UserNumbers from "../Components/ProfileScreenComponents/UserNumbers";
 import UsernameAndCaption from "../Components/ProfileScreenComponents/UsernameAndCaption";
 import ProfileButton from "../Components/ProfileScreenComponents/ProfileButton";
 import { Divider } from "@ui-kitten/components";
 import UserUploadedPictures from "../Components/ProfileScreenComponents/UserUploadedPictures";
+import { firebase } from "../firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { UserSlice } from "../Redux/User";
 
 const ProfileScreen = () => {
+  const [refreshing, setRefreshing] = useState(false);
+  const user = useSelector(
+    //@ts-expect-error
+    (state) => state.User.user
+  );
+  const dispatch = useDispatch();
+  //onRefresh function
+  const onRefresh = async () => {
+    setRefreshing(true);
+    try {
+      //get the user information from firestore
+      const result = (
+        await firebase.firestore().collection("Users").doc(user.username).get()
+      ).data();
+      //update the user global state
+      if (result != undefined) {
+        dispatch(
+          UserSlice.actions.setUser({
+            email: result.email,
+            fullName: result.fullName,
+            profilePictureURL: result.profilePictureURL,
+            username: result.username,
+            followers: result.followers,
+            following: result.following,
+            posts: result.posts,
+            description: result.description,
+          })
+        );
+      }
+      console.log(
+        "Refreshed user global state from the profile screen pull to refresh functionality "
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    //unset the refresh
+    setRefreshing(false);
+  };
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
+    <ScrollView
+      style={{ flex: 1, backgroundColor: "white" }}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         {/* User profile picture */}
         <UserProfilePicture />

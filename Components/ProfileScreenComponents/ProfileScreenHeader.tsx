@@ -4,6 +4,7 @@ import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 //@ts-expect-error
 import Feather from "react-native-vector-icons/Feather";
+import { useSelector } from "react-redux";
 
 const LockIcon = () => <Ionicons name="lock-closed-outline" size={18} />;
 
@@ -13,6 +14,10 @@ const MenuIcon = () => (
   </TouchableOpacity>
 );
 const ProfileScreenHeader = () => {
+  const user = useSelector(
+    //@ts-expect-error
+    (state) => state.User.user
+  );
   return (
     <SafeAreaView
       style={{
@@ -33,7 +38,7 @@ const ProfileScreenHeader = () => {
         {/* Lock icon */}
         <LockIcon />
         <Text style={{ fontSize: 25, fontWeight: "bold", marginLeft: 5 }}>
-          d.jurma
+          {user.username}
         </Text>
       </View>
       <View style={{ flex: 1, alignItems: "flex-end", marginRight: 18 }}>
