@@ -7,6 +7,7 @@ import { StackParams } from '../Navigator/StackNavigator';
 import { useDispatch } from 'react-redux';
 import { UserSlice } from '../Redux/User';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
+import { QueryUserPosts } from './QueryUserPosts';
 
 export async function LoginFunction(
     email: string,
@@ -17,12 +18,14 @@ export async function LoginFunction(
     //set activity indicatorc
     setLoading(true);
     try {
+
+        let username: string;
         await firebase.auth().signInWithEmailAndPassword(email, password);
         //login success : need to get user's information from firestore
         //get all the users
         const result = (await firebase.firestore().collection('Users').get()).docs
         //loop through the docs and find the user in the db and dispatch a action to set the user global state
-        result.forEach(user => {
+        result.forEach(async user => {
             if (user.data().email != undefined && user.data().email === email)
                 dispatch(UserSlice.actions.setUser({
                     email: user.data().email,
@@ -34,7 +37,12 @@ export async function LoginFunction(
                     posts: user.data().posts,
                     description: user.data().description
                 }))
+            username = user.data().username
+            //set the user image profile arrays
+            await QueryUserPosts(username, dispatch)
         });
+
+
         //navigate to homescreen
         navigation.navigate('BottomTabNav')
         console.log('The user has sucessfully logged in')

@@ -96,7 +96,7 @@ const ShareButton = ({ setImage, setDescription }: ShareButtonProps) => {
         .collection("Users")
         .doc(user.username)
         .update({
-          posts: user.posts + 1,
+          posts: currentUserPostsNumber + 1,
         });
 
       Alert.alert("Picture has been posted successfully.");
