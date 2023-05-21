@@ -7,6 +7,8 @@ import BottomTabNavigator from "./BottomTabNavigator";
 import MessagesScreen from "../Screens/MessagesScreen";
 import MessagesScreenHeader from "../Components/MessagesScreenComponents/MessagesScreenHeader";
 import SignupScreen from "../Screens/SignupScreen";
+import UserProfilePostsScreen from "../Screens/UserProfilePostsScreen";
+import UserProfilePostsScreenHeader from "../Components/UserProfilePostsScreenComponents/UserProfilePostsScreenHeader";
 
 export type StackParams = {
   Login: any;
@@ -14,6 +16,7 @@ export type StackParams = {
   Signup: any;
   BottomTabNav: any;
   Messages: any;
+  UserProfilePosts: any;
 };
 
 const Stack = createNativeStackNavigator<StackParams>();
@@ -66,6 +69,11 @@ const StackNavigator = () => {
         name="BottomTabNav"
         component={BottomTabNavigator}
         options={{ headerShown: false, gestureEnabled: false }}
+      />
+      <Stack.Screen
+        name="UserProfilePosts"
+        component={UserProfilePostsScreen}
+        options={{ header: () => <UserProfilePostsScreenHeader /> }}
       />
     </Stack.Navigator>
   );

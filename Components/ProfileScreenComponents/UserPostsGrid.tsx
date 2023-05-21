@@ -1,35 +1,7 @@
-import { View, Text, FlatList, Image, SafeAreaView } from "react-native";
+import { FlatList, SafeAreaView } from "react-native";
 import React from "react";
-import { firebase } from "../../firebase";
 import { useSelector } from "react-redux";
-import { windowWidth } from "../../Constants/Dimensions";
-
-interface RenderItemProps {
-  index: number;
-  date: string;
-  description: string;
-  imageURL: string;
-  PeopleThatLiked: string[];
-  postID: string;
-  timestamp: string;
-}
-
-const RenderItem = ({
-  index,
-  date,
-  description,
-  imageURL,
-  PeopleThatLiked,
-  postID,
-  timestamp,
-}: RenderItemProps) => {
-  return (
-    <Image
-      source={{ uri: imageURL }}
-      style={{ height: windowWidth / 3.05, width: windowWidth / 3.05, margin: 1 }}
-    />
-  );
-};
+import ProfilePostsRenderItem from "./ProfilePostsRenderItem";
 
 const UserPostsGrid = () => {
   const ImagesArray = useSelector(
@@ -43,7 +15,7 @@ const UserPostsGrid = () => {
         data={ImagesArray}
         numColumns={3}
         renderItem={(renderItemObject) => (
-          <RenderItem
+          <ProfilePostsRenderItem
             index={renderItemObject.index}
             date={renderItemObject.item.date}
             description={renderItemObject.item.description}
