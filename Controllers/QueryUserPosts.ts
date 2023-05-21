@@ -19,7 +19,8 @@ export async function QueryUserPosts(
                 dispatch(ProfilePicturePostsSlice.actions.pushImageIntoArray({
                     postID: post.id,
                     imageURL: postData.imageURL,
-                    peopleThatLiked: postData.PeopleThatLiked,
+                    peopleThatLiked: postData.peopleThatLiked,
+                    comments: postData.comments,
                     date: postData.date,
                     description: postData.description,
                     timestamp: postData.timestamp,

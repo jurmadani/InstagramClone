@@ -29,7 +29,7 @@ const InstagramPost = ({
     <View
       style={{
         marginTop: 5,
-        marginBottom: currentIndex === arrayLength ? 15 : 0,
+        marginBottom: currentIndex === arrayLength && arrayLength != 1 ? 15 : 0,
       }}
     >
       {/* Post header */}

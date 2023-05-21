@@ -17,12 +17,7 @@ const UserPostsGrid = () => {
         renderItem={(renderItemObject) => (
           <ProfilePostsRenderItem
             index={renderItemObject.index}
-            date={renderItemObject.item.date}
-            description={renderItemObject.item.description}
             imageURL={renderItemObject.item.imageURL}
-            PeopleThatLiked={renderItemObject.item.PeopleThatLiked}
-            postID={renderItemObject.item.postID}
-            timestamp={renderItemObject.item.timestamp}
           />
         )}
         scrollEnabled={false}

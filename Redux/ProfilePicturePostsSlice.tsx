@@ -4,6 +4,7 @@ interface ImagePayload {
   postID: string;
   imageURL: string;
   peopleThatLiked: string[];
+  comments: string[];
   date: string;
   description: string;
   timestamp: string;

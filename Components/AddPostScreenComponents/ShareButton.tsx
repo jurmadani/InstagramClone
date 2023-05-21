@@ -83,7 +83,8 @@ const ShareButton = ({ setImage, setDescription }: ShareButtonProps) => {
           timestamp: hours + ":" + min + ":" + sec,
           description: postDescriptionText,
           imageURL: url,
-          PeopleThatLiked: [],
+          peopleThatLiked: [],
+          comments: [],
         });
       //update the posts number for the user in database
       //get the user post number

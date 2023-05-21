@@ -1,5 +1,5 @@
 import { View, FlatList } from "react-native";
-import React from "react";
+import React, { useMemo } from "react";
 import InstagramPost from "../Components/HomeScreenComponents/InstagramPost";
 import { useSelector } from "react-redux";
 
@@ -16,11 +16,23 @@ const UserProfilePostsScreen = ({ route }: any) => {
   );
 
   const getItemLayout = (data: any, index: number) => ({
-    length: 375, // Adjust this value based on your item's height
+    length: 375,
     offset: 575 * index,
     index,
   });
-  const { indexToScroll } = route.params.indexToScroll;
+
+  const MemoizedInstagramPost = useMemo(() => React.memo(InstagramPost), []);
+  const renderItem = ({ item, index }: any) => (
+    <MemoizedInstagramPost
+      userAvatar={user.profilePictureURL}
+      username={user.username}
+      imageContent={item.imageURL}
+      description={item.description}
+      arrayLength={ImagesArray.length}
+      currentIndex={index}
+    />
+  );
+
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <FlatList
@@ -31,16 +43,7 @@ const UserProfilePostsScreen = ({ route }: any) => {
             : 0
         }
         getItemLayout={getItemLayout}
-        renderItem={(renderItemObject) => (
-          <InstagramPost
-            userAvatar={user.profilePictureURL}
-            username={user.username}
-            imageContent={renderItemObject.item.imageURL}
-            description={renderItemObject.item.description}
-            arrayLength={ImagesArray.length}
-            currentIndex={renderItemObject.index}
-          />
-        )}
+        renderItem={renderItem}
       />
     </View>
   );
