@@ -33,7 +33,12 @@ const SendPostIcon = () => (
   </TouchableOpacity>
 );
 
-const PostFooter = ({ username, description }: InstagramPostProps) => {
+const PostFooter = ({
+  username,
+  description,
+  comments,
+  peopleThatLiked,
+}: InstagramPostProps) => {
   return (
     <View>
       {/* Buttons view */}
@@ -46,11 +51,11 @@ const PostFooter = ({ username, description }: InstagramPostProps) => {
         <SendPostIcon />
       </View>
       {/* Liked by section */}
-      <LikedBySection />
+      <LikedBySection peopleThatLiked={peopleThatLiked} />
       {/* Author's caption */}
       <AuthorPostCaption username={username} description={description} />
       {/* Comments */}
-      <CommentsPostSection />
+      <CommentsPostSection comments={comments} />
     </View>
   );
 };

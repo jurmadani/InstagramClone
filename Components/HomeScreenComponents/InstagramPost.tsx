@@ -15,6 +15,8 @@ export interface InstagramPostProps {
   description?: string;
   arrayLength?: number;
   currentIndex?: number;
+  comments?: string[];
+  peopleThatLiked?: string[];
 }
 
 const InstagramPost = ({
@@ -24,6 +26,8 @@ const InstagramPost = ({
   description,
   arrayLength,
   currentIndex,
+  comments,
+  peopleThatLiked,
 }: InstagramPostProps) => {
   return (
     <View
@@ -37,7 +41,12 @@ const InstagramPost = ({
       {/* Content */}
       <PostContent imageContent={imageContent} />
       {/* Post footer */}
-      <PostFooter description={description} username={username} />
+      <PostFooter
+        description={description}
+        username={username}
+        comments={comments}
+        peopleThatLiked={peopleThatLiked}
+      />
     </View>
   );
 };
