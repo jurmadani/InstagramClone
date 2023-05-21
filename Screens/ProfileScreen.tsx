@@ -76,8 +76,8 @@ const ProfileScreen = () => {
           flex: 1,
         }}
       >
-        <ProfileButton placeholder="Edit" />
-        <ProfileButton placeholder="Share account" />
+        <ProfileButton placeholder="Edit" actionType="EditAccount" />
+        <ProfileButton placeholder="Share account" actionType="ShareAccount" />
       </View>
       {/* Divider */}
       <Divider style={{ marginTop: 20, height: 1, marginBottom: 1 }} />

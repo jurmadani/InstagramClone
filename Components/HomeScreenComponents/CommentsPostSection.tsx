@@ -8,7 +8,10 @@ const CommentsPostSection = ({ comments }: InstagramPostProps) => {
     <View>
       {comments?.length === 0 ? (
         <View>
-          <Text style={{marginLeft:10, marginTop:5, opacity:0.4}}> No comments</Text>
+          <Text style={{ marginLeft: 10, marginTop: 5, opacity: 0.4 }}>
+            {" "}
+            No comments
+          </Text>
         </View>
       ) : (
         <View style={{ marginLeft: 15, marginTop: 5 }}>

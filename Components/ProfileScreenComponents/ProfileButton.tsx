@@ -2,14 +2,34 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Button } from "@ui-kitten/components";
 import { windowWidth } from "../../Constants/Dimensions";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParams } from "../../Navigator/StackNavigator";
 
 interface ButonProfilProps {
   placeholder: string;
+  actionType: string;
 }
 
-const ProfileButton = ({ placeholder }: ButonProfilProps) => {
+const onPressHandler = (
+  actionType: string,
+  navigation: NativeStackNavigationProp<StackParams>
+) => {
+  switch (actionType) {
+    case "EditAccount":
+      navigation.navigate("EditAccount");
+      break;
+    case "ShareAccount":
+      console.log("share");
+      break;
+  }
+};
+
+const ProfileButton = ({ placeholder, actionType }: ButonProfilProps) => {
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
+
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => onPressHandler(actionType, navigation)}>
       <View
         style={{
           backgroundColor: "#E1E1E1",

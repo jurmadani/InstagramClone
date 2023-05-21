@@ -5,7 +5,8 @@ import { ProfilePicturePostsSlice } from '../Redux/ProfilePicturePostsSlice';
 
 export async function QueryUserPosts(
     currentUserUsername: string,
-    dispatch: Dispatch<AnyAction>) {
+    dispatch: Dispatch<AnyAction>,
+) {
     try {
         //reset the array first
         dispatch(ProfilePicturePostsSlice.actions.resetInitialState())

@@ -9,6 +9,8 @@ import MessagesScreenHeader from "../Components/MessagesScreenComponents/Message
 import SignupScreen from "../Screens/SignupScreen";
 import UserProfilePostsScreen from "../Screens/UserProfilePostsScreen";
 import UserProfilePostsScreenHeader from "../Components/UserProfilePostsScreenComponents/UserProfilePostsScreenHeader";
+import EditAccountScreen from "../Screens/EditAccountScreen";
+import EditAccountScreenHeader from "../Components/EditAccountScreenComponents/EditAccountScreenHeader";
 
 export type StackParams = {
   Login: any;
@@ -17,6 +19,7 @@ export type StackParams = {
   BottomTabNav: any;
   Messages: any;
   UserProfilePosts: any;
+  EditAccount: any;
 };
 
 const Stack = createNativeStackNavigator<StackParams>();
@@ -74,6 +77,14 @@ const StackNavigator = () => {
         name="UserProfilePosts"
         component={UserProfilePostsScreen}
         options={{ header: () => <UserProfilePostsScreenHeader /> }}
+      />
+      <Stack.Screen
+        name="EditAccount"
+        component={EditAccountScreen}
+        options={{
+          header: () => <EditAccountScreenHeader />,
+          gestureEnabled: false,
+        }}
       />
     </Stack.Navigator>
   );
