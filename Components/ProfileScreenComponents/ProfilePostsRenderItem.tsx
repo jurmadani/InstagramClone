@@ -18,7 +18,9 @@ const ProfilePostsRenderItem = ({ index, imageURL }: RenderItemProps) => {
     <TouchableOpacity
       onPress={() => {
         console.log(index);
-        navigation.navigate("UserProfilePosts");
+        navigation.navigate("UserProfilePosts", {
+          indexToScroll: index,
+        });
       }}
     >
       <Image

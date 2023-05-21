@@ -3,6 +3,7 @@ import React from "react";
 import { Avatar, Divider } from "@ui-kitten/components";
 //@ts-expect-error
 import Feather from "react-native-vector-icons/Feather";
+import { InstagramPostProps } from "./InstagramPost";
 
 const MoreIcon = () => (
   <TouchableOpacity>
@@ -10,19 +11,19 @@ const MoreIcon = () => (
   </TouchableOpacity>
 );
 
-const PostHeader = () => {
+const PostHeader = ({ userAvatar, username }: InstagramPostProps) => {
   return (
     <View style={{ flexDirection: "row", margin: 13 }}>
       {/* User's profile picture who posted   */}
       <Avatar
-        source={require("../../assets/Images/dummy-picture-2.jpg")}
+        source={{ uri: userAvatar }}
         style={{
           height: 35,
           width: 35,
         }}
       />
       <Text style={{ fontWeight: "600", alignSelf: "center", marginLeft: 10 }}>
-        d.jurma
+        {username}
       </Text>
       {/* More icon */}
       <View

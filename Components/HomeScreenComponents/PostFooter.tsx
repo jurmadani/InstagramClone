@@ -4,6 +4,7 @@ import { Avatar } from "@ui-kitten/components";
 import LikedBySection from "./LikedBySection";
 import AuthorPostCaption from "./AuthorPostCaption";
 import CommentsPostSection from "./CommentsPostSection";
+import { InstagramPostProps } from "./InstagramPost";
 
 const LikeIcon = () => (
   <TouchableOpacity>
@@ -32,7 +33,7 @@ const SendPostIcon = () => (
   </TouchableOpacity>
 );
 
-const PostFooter = () => {
+const PostFooter = ({ username, description }: InstagramPostProps) => {
   return (
     <View>
       {/* Buttons view */}
@@ -47,7 +48,7 @@ const PostFooter = () => {
       {/* Liked by section */}
       <LikedBySection />
       {/* Author's caption */}
-      <AuthorPostCaption />
+      <AuthorPostCaption username={username} description={description} />
       {/* Comments */}
       <CommentsPostSection />
     </View>

@@ -1,7 +1,8 @@
 import { View, Text } from "react-native";
 import React from "react";
+import { InstagramPostProps } from "./InstagramPost";
 
-const AuthorPostCaption = () => {
+const AuthorPostCaption = ({ username, description }: InstagramPostProps) => {
   return (
     <View style={{ marginLeft: 15, marginTop: 10, flexDirection: "row" }}>
       {/* caption */}
@@ -13,9 +14,9 @@ const AuthorPostCaption = () => {
             fontWeight: "bold",
           }}
         >
-          d.jurma{" "}
+          {username}{" "}
         </Text>
-        The game in Japan was amazing and I want to share some photos
+        {description}
       </Text>
     </View>
   );
