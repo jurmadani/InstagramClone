@@ -8,8 +8,6 @@ export async function QueryUserPosts(
     dispatch: Dispatch<AnyAction>,
 ) {
     try {
-        //reset the array first
-        dispatch(ProfilePicturePostsSlice.actions.resetInitialState())
         let numberOfPushes = 0;
         const result = (await firebase.firestore().collection('Posts').get()).docs
         //loop through the docs and find the posts in the db and dispatch a action to set the user posts global state
@@ -17,6 +15,7 @@ export async function QueryUserPosts(
             if (post.data().author === currentUserUsername) {
                 const postData = post.data()
                 //set redux global state
+
                 dispatch(ProfilePicturePostsSlice.actions.pushImageIntoArray({
                     postID: post.id,
                     imageURL: postData.imageURL,
@@ -33,7 +32,7 @@ export async function QueryUserPosts(
         if (numberOfPushes === 0)
             dispatch(ProfilePicturePostsSlice.actions.resetInitialState())
 
-        console.log('Query finished, and it pushed ' + numberOfPushes + " to redux global state that hold the images array")
+        console.log('Query finished, and it found ' + numberOfPushes + " images that are in the ImagesArray Redux's Global state")
     } catch (error) {
         console.log(error)
     }

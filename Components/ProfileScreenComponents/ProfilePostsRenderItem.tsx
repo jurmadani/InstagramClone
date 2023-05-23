@@ -4,6 +4,7 @@ import { windowWidth } from "../../Constants/Dimensions";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParams } from "../../Navigator/StackNavigator";
+import ImageCache from "../../Controllers/ImageCache";
 
 interface RenderItemProps {
   index: number;
@@ -13,7 +14,6 @@ interface RenderItemProps {
 const ProfilePostsRenderItem = ({ index, imageURL }: RenderItemProps) => {
   //navigation hook
   const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
-
   return (
     <TouchableOpacity
       onPress={() => {
@@ -22,13 +22,12 @@ const ProfilePostsRenderItem = ({ index, imageURL }: RenderItemProps) => {
         });
       }}
     >
-      <Image
-        source={{ uri: imageURL }}
-        style={{
-          height: windowWidth / 3.05,
-          width: windowWidth / 3.05,
-          margin: 1,
-        }}
+      <ImageCache
+        uri={imageURL}
+        height={windowWidth / 3.05}
+        width={windowWidth / 3.05}
+        margin={1}
+        imageType="ProfilePost Image"
       />
     </TouchableOpacity>
   );

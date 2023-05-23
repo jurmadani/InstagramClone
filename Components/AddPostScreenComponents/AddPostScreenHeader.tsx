@@ -1,5 +1,6 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
+import { Divider } from "@ui-kitten/components";
 
 const AddPostScreenHeader = () => {
   return (
@@ -20,6 +21,7 @@ const AddPostScreenHeader = () => {
       >
         New Post
       </Text>
+      <Divider style={{ marginTop: 10 }} />
     </SafeAreaView>
   );
 };

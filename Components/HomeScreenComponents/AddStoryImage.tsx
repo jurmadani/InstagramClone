@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity, Platform } from "react-native";
 import React from "react";
 import { Avatar } from "@ui-kitten/components";
 import { useSelector } from "react-redux";
+import ImageCache from "../../Controllers/ImageCache";
 
 const AddStoryImage = () => {
   //get the user global state
@@ -17,13 +18,13 @@ const AddStoryImage = () => {
         }}
       >
         {/* Imaginea user-ului conectat */}
-        <Avatar
-          style={{
-            height: 68,
-            width: 68,
-            marginTop: 5,
-          }}
-          source={{ uri: user.profilePictureURL }}
+        <ImageCache
+          uri={user.profilePictureURL}
+          height={68}
+          width={68}
+          marginTop={5}
+          borderRadius={999}
+          imageType="User profile picture"
         />
         <View
           style={{

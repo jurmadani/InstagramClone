@@ -2,6 +2,7 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import { Avatar } from "@ui-kitten/components";
 import { useSelector } from "react-redux";
+import ImageCache from "../../Controllers/ImageCache";
 
 const UserProfilePicture = () => {
   const user = useSelector(
@@ -10,9 +11,12 @@ const UserProfilePicture = () => {
   );
   return (
     <View style={{ margin: 20 }}>
-      <Avatar
-        source={{uri:user.profilePictureURL}}
-        style={{ height: 90, width: 90 }}
+      <ImageCache
+        uri={user.profilePictureURL}
+        height={90}
+        width={90}
+        borderRadius={999}
+        imageType="User profile picture"
       />
       <View
         style={{

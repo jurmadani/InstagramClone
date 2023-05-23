@@ -23,7 +23,19 @@ export const ProfilePicturePostsSlice = createSlice({
   initialState,
   reducers: {
     pushImageIntoArray: (state, action: PayloadAction<ImagePayload>) => {
-      state.imagesArray.push(action.payload);
+      let newImagesPushed = 0;
+      let found = false;
+      state.imagesArray.forEach((image) => {
+        if (image.postID === action.payload.postID) {
+          found = true;
+        }
+      });
+      if (found === false) {
+        state.imagesArray.push(action.payload);
+        newImagesPushed = newImagesPushed + 1;
+      }
+      if (newImagesPushed === 0) console.log("No new images were added");
+      else console.log(newImagesPushed + " were added to the array");
     },
     resetInitialState: (state) => {
       state.imagesArray = [];

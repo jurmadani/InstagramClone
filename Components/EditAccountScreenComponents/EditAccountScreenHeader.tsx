@@ -1,7 +1,11 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParams } from "../../Navigator/StackNavigator";
 
 const EditAccountScreenHeader = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
   return (
     <SafeAreaView
       style={{
@@ -12,7 +16,7 @@ const EditAccountScreenHeader = () => {
       }}
     >
       {/* Cancel button */}
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
         <Text style={{ fontSize: 16, fontWeight: "400" }}>Cancel</Text>
       </TouchableOpacity>
 
