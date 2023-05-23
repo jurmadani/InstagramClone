@@ -1,11 +1,14 @@
 import { View, TouchableOpacity, Image, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LikedBySection from "./LikedBySection";
 import AuthorPostCaption from "./AuthorPostCaption";
 import CommentsPostSection from "./CommentsPostSection";
 import { InstagramPostProps } from "./InstagramPost";
 //@ts-ignores
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { firebase } from "../../firebase";
+import { useDispatch } from "react-redux";
+import { ProfilePicturePostsSlice } from "../../Redux/ProfilePicturePostsSlice";
 
 const CommentIcon = () => (
   <TouchableOpacity style={{ marginLeft: 15 }}>
@@ -19,17 +22,90 @@ const SendPostIcon = () => (
   </TouchableOpacity>
 );
 
+const LikePostFunction = async (
+  username: string,
+  postID: string,
+  peopleThatLiked: string[]
+) => {
+  await firebase.firestore().collection("Posts").doc(postID).update({
+    peopleThatLiked: peopleThatLiked,
+  });
+};
+
+const UnlikePostFunction = async (
+  username: string,
+  postID: string,
+  peopleThatLiked: string[]
+) => {
+  await firebase.firestore().collection("Posts").doc(postID).update({
+    peopleThatLiked: peopleThatLiked,
+  });
+};
+
 const PostFooter = ({
   username,
   description,
   comments,
   peopleThatLiked,
+  postID,
 }: InstagramPostProps) => {
+  const dispatch = useDispatch();
   const [liked, setLiked] = useState(false);
+
+  //component mounts
+  useEffect(() => {
+    if (peopleThatLiked != undefined)
+      peopleThatLiked.forEach((otherUser) => {
+        if (otherUser === username) setLiked(true);
+      });
+  }, []);
 
   const LikeButton = () => (
     <TouchableOpacity
-      onPress={() => setLiked((isLiked) => !isLiked)}
+      onPress={async () => {
+        if (
+          username != undefined &&
+          postID != undefined &&
+          peopleThatLiked != undefined
+        ) {
+          if (liked === false) {
+            //like functionality
+            const tempArray = [...peopleThatLiked]; // Make a copy of the array
+
+            tempArray.push(username); // Modify the copied array
+            // push your name into the peopleThatLiked array
+            // update firestore
+            await LikePostFunction(username, postID, tempArray);
+            //update redux
+            dispatch(
+              ProfilePicturePostsSlice.actions.addNewPeopleThatLiked({
+                postID: postID,
+                peopleThatLiked: tempArray,
+              })
+            );
+            setLiked(true);
+          } else {
+            //unlike functionality
+            const tempArray = [...peopleThatLiked]; // Make a copy of the array
+
+            const userIndex = tempArray.indexOf(username);
+
+            //delete the user that unliked the photo from the people that like array
+            tempArray.splice(userIndex, 1);
+
+            // update firestore
+            await UnlikePostFunction(username, postID, tempArray);
+            //update redux
+            dispatch(
+              ProfilePicturePostsSlice.actions.removePeopleThatLiked({
+                postID: postID,
+                peopleThatLiked: tempArray,
+              })
+            );
+            setLiked(false);
+          }
+        }
+      }}
       style={{ marginLeft: 15 }}
     >
       <MaterialCommunityIcons

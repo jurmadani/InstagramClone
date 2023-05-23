@@ -50,5 +50,30 @@ export const ProfilePicturePostsSlice = createSlice({
     resetInitialState: (state) => {
       state.imagesArray = [];
     },
+    addNewPeopleThatLiked: (
+      state,
+      action: PayloadAction<{ postID: string; peopleThatLiked: string[] }>
+    ) => {
+      const { postID, peopleThatLiked } = action.payload;
+
+      state.imagesArray.forEach((image) => {
+        if (image.postID === postID) {
+          image.peopleThatLiked = peopleThatLiked;
+        }
+      });
+    },
+
+    removePeopleThatLiked: (
+      state,
+      action: PayloadAction<{ postID: string; peopleThatLiked: string[] }>
+    ) => {
+      const { postID, peopleThatLiked } = action.payload;
+
+      state.imagesArray.forEach((image) => {
+        if (image.postID === postID) {
+          image.peopleThatLiked = peopleThatLiked;
+        }
+      });
+    },
   },
 });

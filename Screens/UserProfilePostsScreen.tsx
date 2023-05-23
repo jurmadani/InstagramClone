@@ -56,6 +56,7 @@ const UserProfilePostsScreen = ({ route }: any) => {
       currentIndex={index}
       peopleThatLiked={item.peopleThatLiked}
       comments={item.comments}
+      postID={item.postID}
     />
   );
   return (
