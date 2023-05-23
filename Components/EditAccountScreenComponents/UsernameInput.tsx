@@ -1,14 +1,21 @@
 import { View, Text, TextInput } from "react-native";
 import React from "react";
 import { windowWidth } from "../../Constants/Dimensions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Divider } from "react-native-paper";
+import { EditAccountSlice } from "../../Redux/EditAccoutSlice";
 
-const UsernameInput = () => {
+interface UsernameInputProps {
+  value: string;
+  onChangeText: (text: string) => void;
+}
+
+const UsernameInput = ({ value, onChangeText }: UsernameInputProps) => {
   const user = useSelector(
     //@ts-expect-error
     (state) => state.User.user
   );
+  const dispatch = useDispatch();
   return (
     <View
       style={{
@@ -29,6 +36,9 @@ const UsernameInput = () => {
             fontSize: 17,
             marginLeft: 15,
           }}
+          value={value}
+          onChangeText={onChangeText}
+          onBlur={() => dispatch(EditAccountSlice.actions.setUsername(value))}
         />
         <Divider style={{ marginTop: 5, marginLeft: 15 }} />
       </View>

@@ -1,6 +1,7 @@
 import { View, Text, Image } from "react-native";
 import React, { useState, useEffect } from "react";
 import * as FileSystem from "expo-file-system";
+import { useSelector } from "react-redux";
 
 interface Props {
   uri: string;
@@ -21,8 +22,11 @@ const ImageCache = ({
   margin,
   imageType,
 }: Props) => {
+  const user = useSelector(
+    //@ts-expect-error
+    (state) => state.User.user
+  );
   const [source, setSource] = useState("");
-
   const ImgFunc = async (path: string) => {
     const image = await FileSystem.getInfoAsync(path);
     if (image.exists) {
@@ -43,6 +47,15 @@ const ImageCache = ({
       ImgFunc(path);
     }
   }, []);
+
+  useEffect(() => {
+    if (uri != undefined) {
+      var sh = require("shorthash");
+      const name = sh.unique(uri);
+      const path = `${FileSystem.cacheDirectory}${name}`;
+      ImgFunc(path);
+    }
+  }, [user.profilePictureURL]);
   return (
     <View>
       <Image
