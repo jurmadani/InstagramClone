@@ -27,7 +27,17 @@ export const ProfilePicturePostsSlice = createSlice({
       let found = false;
       state.imagesArray.forEach((image) => {
         if (image.postID === action.payload.postID) {
-          found = true;
+          if (image.comments.length != action.payload.comments.length) {
+            image.comments = action.payload.comments;
+            found = true;
+          }
+          if (
+            image.peopleThatLiked.length !=
+            action.payload.peopleThatLiked.length
+          ) {
+            image.peopleThatLiked = action.payload.peopleThatLiked;
+            found = true;
+          } else found = true;
         }
       });
       if (found === false) {

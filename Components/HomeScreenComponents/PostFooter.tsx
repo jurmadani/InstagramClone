@@ -1,35 +1,21 @@
 import { View, TouchableOpacity, Image, Text } from "react-native";
-import React from "react";
-import { Avatar } from "@ui-kitten/components";
+import React, { useState } from "react";
 import LikedBySection from "./LikedBySection";
 import AuthorPostCaption from "./AuthorPostCaption";
 import CommentsPostSection from "./CommentsPostSection";
 import { InstagramPostProps } from "./InstagramPost";
-
-const LikeIcon = () => (
-  <TouchableOpacity>
-    <Image
-      source={require("../../assets/Icons/like.png")}
-      style={{ height: 29, width: 29, marginLeft: 15 }}
-    />
-  </TouchableOpacity>
-);
+//@ts-ignores
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const CommentIcon = () => (
-  <TouchableOpacity>
-    <Image
-      source={require("../../assets/Icons/comment.png")}
-      style={{ height: 29, width: 29, marginLeft: 15 }}
-    />
+  <TouchableOpacity style={{ marginLeft: 15 }}>
+    <MaterialCommunityIcons name="comment-outline" size={29} />
   </TouchableOpacity>
 );
 
 const SendPostIcon = () => (
-  <TouchableOpacity>
-    <Image
-      source={require("../../assets/Icons/send.png")}
-      style={{ height: 29, width: 29, marginLeft: 15 }}
-    />
+  <TouchableOpacity style={{ marginLeft: 15 }}>
+    <MaterialCommunityIcons name="send" size={29} />
   </TouchableOpacity>
 );
 
@@ -39,12 +25,26 @@ const PostFooter = ({
   comments,
   peopleThatLiked,
 }: InstagramPostProps) => {
+  const [liked, setLiked] = useState(false);
+
+  const LikeButton = () => (
+    <TouchableOpacity
+      onPress={() => setLiked((isLiked) => !isLiked)}
+      style={{ marginLeft: 15 }}
+    >
+      <MaterialCommunityIcons
+        name={liked ? "heart" : "heart-outline"}
+        color={liked ? "red" : "black"}
+        size={29}
+      />
+    </TouchableOpacity>
+  );
   return (
     <View>
       {/* Buttons view */}
-      <View style={{ flexDirection: "row", marginTop: 5 }}>
+      <View style={{ flexDirection: "row", marginTop: 10 }}>
         {/* Like button */}
-        <LikeIcon />
+        <LikeButton />
         {/* Comment button */}
         <CommentIcon />
         {/* Send button */}
