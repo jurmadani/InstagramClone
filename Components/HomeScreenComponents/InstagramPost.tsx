@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PostHeader from "./PostHeader";
 import PostContent from "./PostContent";
 import PostFooter from "./PostFooter";
@@ -31,6 +31,16 @@ const InstagramPost = ({
   peopleThatLiked,
   postID,
 }: InstagramPostProps) => {
+  const [liked, setLiked] = useState(false);
+
+  //component mounts
+  useEffect(() => {
+    if (peopleThatLiked != undefined)
+      peopleThatLiked.forEach((otherUser) => {
+        if (otherUser === username) setLiked(true);
+      });
+  }, []);
+
   return (
     <View
       style={{
@@ -43,7 +53,14 @@ const InstagramPost = ({
       {/* Post header */}
       <PostHeader userAvatar={userAvatar} username={username} />
       {/* Content */}
-      <PostContent imageContent={imageContent} />
+      <PostContent
+        imageContent={imageContent}
+        postID={postID}
+        peopleThatLiked={peopleThatLiked}
+        username={username}
+        liked={liked}
+        setLiked={setLiked}
+      />
       {/* Post footer */}
       <PostFooter
         description={description}
@@ -51,6 +68,8 @@ const InstagramPost = ({
         comments={comments}
         peopleThatLiked={peopleThatLiked}
         postID={postID}
+        liked={liked}
+        setLiked={setLiked}
       />
     </View>
   );

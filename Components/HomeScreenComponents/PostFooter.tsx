@@ -10,6 +10,12 @@ import { firebase } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { ProfilePicturePostsSlice } from "../../Redux/ProfilePicturePostsSlice";
 
+//component interface
+interface ExtendedInstagramPostProps extends InstagramPostProps {
+  liked: boolean;
+  setLiked: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 const CommentIcon = () => (
   <TouchableOpacity style={{ marginLeft: 15 }}>
     <MaterialCommunityIcons name="comment-outline" size={29} />
@@ -22,7 +28,7 @@ const SendPostIcon = () => (
   </TouchableOpacity>
 );
 
-const LikePostFunction = async (
+export const LikePostFunction = async (
   username: string,
   postID: string,
   peopleThatLiked: string[]
@@ -32,7 +38,7 @@ const LikePostFunction = async (
   });
 };
 
-const UnlikePostFunction = async (
+export const UnlikePostFunction = async (
   username: string,
   postID: string,
   peopleThatLiked: string[]
@@ -48,17 +54,10 @@ const PostFooter = ({
   comments,
   peopleThatLiked,
   postID,
-}: InstagramPostProps) => {
+  liked,
+  setLiked,
+}: ExtendedInstagramPostProps) => {
   const dispatch = useDispatch();
-  const [liked, setLiked] = useState(false);
-
-  //component mounts
-  useEffect(() => {
-    if (peopleThatLiked != undefined)
-      peopleThatLiked.forEach((otherUser) => {
-        if (otherUser === username) setLiked(true);
-      });
-  }, []);
 
   const LikeButton = () => (
     <TouchableOpacity

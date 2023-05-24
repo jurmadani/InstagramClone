@@ -17,7 +17,7 @@ export async function QueryUserPosts(
                 //set redux global state
 
                 dispatch(ProfilePicturePostsSlice.actions.pushImageIntoArray({
-                    postID: post.id,
+                    postID: post.id,    
                     imageURL: postData.imageURL,
                     peopleThatLiked: postData.peopleThatLiked,
                     comments: postData.comments,
