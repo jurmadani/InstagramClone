@@ -26,7 +26,9 @@ export async function LoginFunction(
         const result = (await firebase.firestore().collection('Users').get()).docs
         //loop through the docs and find the user in the db and dispatch a action to set the user global state
         result.forEach(async user => {
-            if (user.data().email != undefined && user.data().email === email)
+            if (user.data().email != undefined && user.data().email === email) {
+                
+
                 dispatch(UserSlice.actions.setUser({
                     email: user.data().email,
                     fullName: user.data().fullName,
@@ -37,6 +39,8 @@ export async function LoginFunction(
                     posts: user.data().posts,
                     description: user.data().description
                 }))
+            }
+
             username = user.data().username
             //set the user image profile arrays
             await QueryUserPosts(username, dispatch)

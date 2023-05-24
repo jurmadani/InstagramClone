@@ -58,7 +58,6 @@ const PostFooter = ({
   setLiked,
 }: ExtendedInstagramPostProps) => {
   const dispatch = useDispatch();
-
   const LikeButton = () => (
     <TouchableOpacity
       onPress={async () => {
@@ -82,6 +81,7 @@ const PostFooter = ({
                 peopleThatLiked: tempArray,
               })
             );
+
             setLiked(true);
           } else {
             //unlike functionality
@@ -101,6 +101,7 @@ const PostFooter = ({
                 peopleThatLiked: tempArray,
               })
             );
+
             setLiked(false);
           }
         }
@@ -126,7 +127,9 @@ const PostFooter = ({
         <SendPostIcon />
       </View>
       {/* Liked by section */}
-      <LikedBySection peopleThatLiked={peopleThatLiked} />
+      <LikedBySection
+        peopleThatLiked={peopleThatLiked}
+      />
       {/* Author's caption */}
       <AuthorPostCaption username={username} description={description} />
       {/* Comments */}

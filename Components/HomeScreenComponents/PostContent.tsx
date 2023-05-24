@@ -7,8 +7,9 @@ import * as Haptics from "expo-haptics";
 //@ts-ignore
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { LikePostFunction, UnlikePostFunction } from "./PostFooter";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ProfilePicturePostsSlice } from "../../Redux/ProfilePicturePostsSlice";
+import { firebase } from "../../firebase";
 
 //component interface
 interface ExtendedInstagramPostProps extends InstagramPostProps {
@@ -47,7 +48,7 @@ const PostContent = ({
             toValue: 0,
             duration: 300,
             useNativeDriver: true,
-          }).start(() => {
+          }).start(async () => {
             setLikePlaceholder(false);
           });
         }, 350);
@@ -64,6 +65,7 @@ const PostContent = ({
 
           tempArray.push(username); // Modify the copied array
           // push your name into the peopleThatLiked array
+
           // update firestore
           await LikePostFunction(username, postID, tempArray);
           //update redux
@@ -73,6 +75,7 @@ const PostContent = ({
               peopleThatLiked: tempArray,
             })
           );
+
           setLiked(true);
         } else {
           //unlike functionality
@@ -86,12 +89,14 @@ const PostContent = ({
           // update firestore
           await UnlikePostFunction(username, postID, tempArray);
           //update redux
+
           dispatch(
             ProfilePicturePostsSlice.actions.removePeopleThatLiked({
               postID: postID,
               peopleThatLiked: tempArray,
             })
           );
+
           setLiked(false);
         }
       }

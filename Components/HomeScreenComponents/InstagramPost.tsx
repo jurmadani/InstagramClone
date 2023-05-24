@@ -32,7 +32,6 @@ const InstagramPost = ({
   postID,
 }: InstagramPostProps) => {
   const [liked, setLiked] = useState(false);
-
   //component mounts
   useEffect(() => {
     if (peopleThatLiked != undefined)
@@ -40,7 +39,6 @@ const InstagramPost = ({
         if (otherUser === username) setLiked(true);
       });
   }, []);
-
   return (
     <View
       style={{

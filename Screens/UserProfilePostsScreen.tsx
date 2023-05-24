@@ -46,19 +46,21 @@ const UserProfilePostsScreen = ({ route }: any) => {
   };
   //Memoized Post to not rerender every time
   const MemoizedInstagramPost = useMemo(() => React.memo(InstagramPost), []);
-  const renderItem = ({ item, index }: any) => (
-    <MemoizedInstagramPost
-      userAvatar={user.profilePictureURL}
-      username={user.username}
-      imageContent={item.imageURL}
-      description={item.description}
-      arrayLength={ImagesArray.length}
-      currentIndex={index}
-      peopleThatLiked={item.peopleThatLiked}
-      comments={item.comments}
-      postID={item.postID}
-    />
-  );
+  const renderItem = ({ item, index }: any) => {
+    return (
+      <InstagramPost
+        userAvatar={user.profilePictureURL}
+        username={user.username}
+        imageContent={item.imageURL}
+        description={item.description}
+        arrayLength={ImagesArray.length}
+        currentIndex={index}
+        peopleThatLiked={item.peopleThatLiked}
+        comments={item.comments}
+        postID={item.postID}
+      />
+    );
+  };
   return (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <FlatList

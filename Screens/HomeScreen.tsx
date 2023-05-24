@@ -34,10 +34,6 @@ const HomeScreen = () => {
       {/* Divider between feed posts and story board */}
       <Divider style={{ marginTop: 8, height: 1 }} />
       {/* Posts */}
-      <InstagramPost />
-      <InstagramPost />
-      <InstagramPost />
-      <InstagramPost />
     </ScrollView>
   );
 };

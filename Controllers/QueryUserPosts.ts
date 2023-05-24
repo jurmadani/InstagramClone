@@ -11,13 +11,14 @@ export async function QueryUserPosts(
         let numberOfPushes = 0;
         const result = (await firebase.firestore().collection('Posts').get()).docs
         //loop through the docs and find the posts in the db and dispatch a action to set the user posts global state
-        result.forEach(post => {
+        result.forEach(async post => {
             if (post.data().author === currentUserUsername) {
                 const postData = post.data()
                 //set redux global state
 
+                //get lastUserThatLikedPpost
                 dispatch(ProfilePicturePostsSlice.actions.pushImageIntoArray({
-                    postID: post.id,    
+                    postID: post.id,
                     imageURL: postData.imageURL,
                     peopleThatLiked: postData.peopleThatLiked,
                     comments: postData.comments,
