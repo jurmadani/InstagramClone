@@ -6,51 +6,7 @@ import ImageCache from "../../Controllers/ImageCache";
 import { firebase } from "../../firebase";
 import { useSelector } from "react-redux";
 
-const TotalLikesOnPost = ({ peopleThatLiked }: InstagramPostProps) => {
-  return (
-    <View style={{ marginLeft: 15, marginTop: 10, flexDirection: "row" }}>
-      {/* First person that liked the photo image */}
-      {/**
-        
-      <ImageCache uri={image} height={17} width={17} borderRadius={999} />
-       
-       */}
-      <Text style={{ marginLeft: 10, fontSize: 13, textAlign: "center" }}>
-        Liked by
-      </Text>
-      {/* First user that liked the photo */}
-      <Text
-        style={{
-          marginLeft: 5,
-          fontSize: 13,
-          textAlign: "center",
-          fontWeight: "bold",
-        }}
-      >
-        craig_love
-      </Text>
-      {/* and the rest of the likes(total likes) */}
-      <Text style={{ marginLeft: 5, fontSize: 13, textAlign: "center" }}>
-        and
-      </Text>
-      <Text
-        style={{
-          marginLeft: 5,
-          fontSize: 13,
-          textAlign: "center",
-          fontWeight: "bold",
-        }}
-      >
-        44,686 others
-      </Text>
-    </View>
-  );
-};
-
-const LikedBySection = ({
-  peopleThatLiked,
-  lastUserThatLiked,
-}: InstagramPostProps) => {
+const LikedBySection = ({ peopleThatLiked }: InstagramPostProps) => {
   if (peopleThatLiked?.length === 0) return null;
 
   return (

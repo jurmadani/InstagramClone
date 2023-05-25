@@ -11,6 +11,8 @@ import UserProfilePostsScreen from "../Screens/UserProfilePostsScreen";
 import UserProfilePostsScreenHeader from "../Components/UserProfilePostsScreenComponents/UserProfilePostsScreenHeader";
 import EditAccountScreen from "../Screens/EditAccountScreen";
 import EditAccountScreenHeader from "../Components/EditAccountScreenComponents/EditAccountScreenHeader";
+import AddCommentScreen from "../Screens/AddCommentScreen";
+import AddCommentScreenHeader from "../Components/AddCommentScreenComponents/AddCommentScreenHeader";
 
 export type StackParams = {
   Login: any;
@@ -20,6 +22,7 @@ export type StackParams = {
   Messages: any;
   UserProfilePosts: any;
   EditAccount: any;
+  AddComment: any;
 };
 
 const Stack = createNativeStackNavigator<StackParams>();
@@ -84,6 +87,13 @@ const StackNavigator = () => {
         options={{
           header: () => <EditAccountScreenHeader />,
           gestureEnabled: false,
+        }}
+      />
+      <Stack.Screen
+        name="AddComment"
+        component={AddCommentScreen}
+        options={{
+          header: () => <AddCommentScreenHeader />,
         }}
       />
     </Stack.Navigator>

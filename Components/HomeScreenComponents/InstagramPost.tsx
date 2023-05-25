@@ -18,6 +18,8 @@ export interface InstagramPostProps {
   comments?: string[];
   peopleThatLiked?: string[];
   postID?: string;
+  timestamp?: string;
+  date?: string;
 }
 
 const InstagramPost = ({
@@ -30,6 +32,8 @@ const InstagramPost = ({
   comments,
   peopleThatLiked,
   postID,
+  date,
+  timestamp,
 }: InstagramPostProps) => {
   const [liked, setLiked] = useState(false);
   //component mounts
@@ -68,6 +72,8 @@ const InstagramPost = ({
         postID={postID}
         liked={liked}
         setLiked={setLiked}
+        date={date}
+        timestamp={timestamp}
       />
     </View>
   );

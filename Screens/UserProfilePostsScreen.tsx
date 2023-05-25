@@ -58,6 +58,8 @@ const UserProfilePostsScreen = ({ route }: any) => {
         peopleThatLiked={item.peopleThatLiked}
         comments={item.comments}
         postID={item.postID}
+        timestamp={item.timestamp}
+        date={item.date}
       />
     );
   };

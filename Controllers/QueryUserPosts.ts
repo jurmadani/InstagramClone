@@ -15,8 +15,6 @@ export async function QueryUserPosts(
             if (post.data().author === currentUserUsername) {
                 const postData = post.data()
                 //set redux global state
-
-                //get lastUserThatLikedPpost
                 dispatch(ProfilePicturePostsSlice.actions.pushImageIntoArray({
                     postID: post.id,
                     imageURL: postData.imageURL,

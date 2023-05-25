@@ -9,18 +9,15 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { firebase } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { ProfilePicturePostsSlice } from "../../Redux/ProfilePicturePostsSlice";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParams } from "../../Navigator/StackNavigator";
 
 //component interface
 interface ExtendedInstagramPostProps extends InstagramPostProps {
   liked: boolean;
   setLiked: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-const CommentIcon = () => (
-  <TouchableOpacity style={{ marginLeft: 15 }}>
-    <MaterialCommunityIcons name="comment-outline" size={29} />
-  </TouchableOpacity>
-);
 
 const SendPostIcon = () => (
   <TouchableOpacity style={{ marginLeft: 15 }}>
@@ -56,7 +53,29 @@ const PostFooter = ({
   postID,
   liked,
   setLiked,
+  timestamp,
+  date,
 }: ExtendedInstagramPostProps) => {
+  //navigation hook
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
+  const CommentIcon = () => (
+    <TouchableOpacity
+      style={{ marginLeft: 15 }}
+      onPress={() =>
+        navigation.navigate("AddComment", {
+          commentsArray: comments,
+          postOwner: username,
+          description: description,
+          timestamp: timestamp,
+          date: date,
+          postID: postID,
+        })
+      }
+    >
+      <MaterialCommunityIcons name="comment-outline" size={29} />
+    </TouchableOpacity>
+  );
+
   const dispatch = useDispatch();
   const LikeButton = () => (
     <TouchableOpacity
@@ -127,13 +146,15 @@ const PostFooter = ({
         <SendPostIcon />
       </View>
       {/* Liked by section */}
-      <LikedBySection
-        peopleThatLiked={peopleThatLiked}
-      />
+      <LikedBySection peopleThatLiked={peopleThatLiked} />
       {/* Author's caption */}
       <AuthorPostCaption username={username} description={description} />
       {/* Comments */}
-      <CommentsPostSection comments={comments} />
+      <CommentsPostSection
+        comments={comments}
+        timestamp={timestamp}
+        date={date}
+      />
     </View>
   );
 };

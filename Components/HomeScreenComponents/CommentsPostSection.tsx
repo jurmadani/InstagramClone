@@ -2,8 +2,32 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Avatar, Divider } from "@ui-kitten/components";
 import { InstagramPostProps } from "./InstagramPost";
+import moment from "moment";
 
-const CommentsPostSection = ({ comments }: InstagramPostProps) => {
+const CommentsPostSection = ({
+  comments,
+  timestamp,
+  date,
+}: InstagramPostProps) => {
+  const getTimePassed = (timestamp: string, date: string) => {
+    const currentDate = moment();
+    const postDate = moment(`${date} ${timestamp}`, "D/M/YYYY HH:mm:ss");
+    const timeDiffMinutes = currentDate.diff(postDate, "minutes");
+
+    if (timeDiffMinutes <= 60) {
+      return `${timeDiffMinutes}m`;
+    } else if (timeDiffMinutes <= 1440) {
+      const timeDiffHours = Math.floor(timeDiffMinutes / 60);
+      return `${timeDiffHours}h`;
+    } else {
+      const timeDiffDays = Math.floor(timeDiffMinutes / 1440);
+      return `${timeDiffDays}d`;
+    }
+  };
+  let passedTime = "";
+  if (timestamp != undefined && date != undefined)
+    passedTime = getTimePassed(timestamp, date);
+
   return (
     <View>
       {comments?.length === 0 ? (
@@ -17,11 +41,13 @@ const CommentsPostSection = ({ comments }: InstagramPostProps) => {
         <View style={{ marginLeft: 15, marginTop: 5 }}>
           <TouchableOpacity>
             {/* Comment count */}
-            <Text style={{ opacity: 0.2 }}>View all the 256 comments</Text>
+            <Text style={{ opacity: 0.2 }}>
+              View all the {comments?.length} comments
+            </Text>
           </TouchableOpacity>
           {/* Timestamp */}
           <Text style={{ opacity: 0.2, fontSize: 10, marginTop: 5 }}>
-            2 days ago
+            {passedTime}
           </Text>
         </View>
       )}

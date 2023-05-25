@@ -1,10 +1,18 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+interface CommentsArrayProps {
+  username: string;
+  comment: string;
+  profilePictureURL: string;
+  timestamp: string;
+  date: string;
+}
+
 interface ImagePayload {
   postID: string;
   imageURL: string;
   peopleThatLiked: string[];
-  comments: string[];
+  comments: CommentsArrayProps[];
   date: string;
   description: string;
   timestamp: string;
@@ -72,6 +80,18 @@ export const ProfilePicturePostsSlice = createSlice({
       state.imagesArray.forEach((image) => {
         if (image.postID === postID) {
           image.peopleThatLiked = peopleThatLiked;
+        }
+      });
+    },
+    addNewComment: (
+      state,
+      action: PayloadAction<{ postID: string; comments: CommentsArrayProps[] }>
+    ) => {
+      const { postID, comments } = action.payload;
+
+      state.imagesArray.forEach((image) => {
+        if (image.postID === postID) {
+          image.comments = comments;
         }
       });
     },
