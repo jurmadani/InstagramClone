@@ -27,12 +27,16 @@ interface AddCommentBoxProps {
   setMutableArray: React.Dispatch<
     React.SetStateAction<CommentsArrayMutableProps[]>
   >;
+  setCommentsArrayState: React.Dispatch<
+    React.SetStateAction<CommentsArrayMutableProps[]>
+  >;
 }
 
 const AddCommentBox = ({
   postID,
   commentsArray,
   setMutableArray,
+  setCommentsArrayState,
 }: AddCommentBoxProps) => {
   const dispatch = useDispatch();
   const [comment, setComment] = useState("");
@@ -70,6 +74,7 @@ const AddCommentBox = ({
         ];
         //update comments array state
         setMutableArray(shadowArray);
+        setCommentsArrayState(shadowArray);
         console.log(shadowArray);
         //reset value from input
         setComment("");

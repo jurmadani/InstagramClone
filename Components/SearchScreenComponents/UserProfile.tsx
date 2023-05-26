@@ -5,7 +5,7 @@ import ImageCache from "../../Controllers/ImageCache";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParams } from "../../Navigator/StackNavigator";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { OtherUserSlice } from "../../Redux/OtherUser";
 
 interface ItemProps {
@@ -24,15 +24,23 @@ interface UserProfileProps {
 }
 
 const UserProfile = ({ item }: UserProfileProps) => {
+  const user = useSelector(
+    (state) =>
+      //@ts-ignore
+      state.User.user
+  );
   const dispatch = useDispatch();
   const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
   return (
     <TouchableOpacity
       onPress={() => {
         dispatch(OtherUserSlice.actions.setOtherUser(item));
-        navigation.navigate("OtherUserProfile", {
-          userInformation: item,
-        });
+        if (item.username != user.username)
+          navigation.navigate("OtherUserProfile", {
+            userInformation: item,
+          });
+        //@ts-ignore
+        else navigation.navigate("Profile");
       }}
     >
       <View

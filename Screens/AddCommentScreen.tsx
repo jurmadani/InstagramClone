@@ -28,8 +28,15 @@ const AddCommentScreen = ({ route }: any) => {
   const [commentsArrayMutable, setCommentsArrayMutable] = useState<
     CommentsArrayMutableProps[]
   >([]);
-  const { commentsArray, description, postOwner, timestamp, date, postID } =
-    route.params;
+  const {
+    commentsArray,
+    description,
+    postOwner,
+    timestamp,
+    date,
+    postID,
+    setCommentsArrayState,
+  } = route.params;
   useEffect(() => {
     setCommentsArrayMutable(commentsArray);
   }, []);
@@ -62,6 +69,7 @@ const AddCommentScreen = ({ route }: any) => {
           postID={postID}
           commentsArray={commentsArrayMutable}
           setMutableArray={setCommentsArrayMutable}
+          setCommentsArrayState={setCommentsArrayState}
         />
       </View>
       {/* Comment footer box */}

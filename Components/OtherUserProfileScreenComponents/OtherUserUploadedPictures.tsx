@@ -7,6 +7,17 @@ import OtherUserPostsGrid from "./OtherUserPostsGrid";
 
 const CameraIcon = () => <SimpleLineIcons name="camera" size={55} />;
 
+interface OtherUserPostsInterface {
+  postID: string;
+  author: string;
+  comments: string[];
+  date: string;
+  description: string;
+  imageURL: string;
+  peopleThatLiked: string[];
+  timestamp: string;
+}
+
 type Post = {
   author: string;
   comments: string[];
@@ -19,10 +30,16 @@ type Post = {
 
 interface OtherUserUploadedPicturesProps {
   otherUserPosts: Post[];
+  loadingPhoto: boolean;
+  setOtherUserPosts: React.Dispatch<
+    React.SetStateAction<OtherUserPostsInterface[]>
+  >;
 }
 
 const OtherUserUploadedPictures = ({
   otherUserPosts,
+  loadingPhoto,
+  setOtherUserPosts,
 }: OtherUserUploadedPicturesProps) => {
   const otherUser = useSelector(
     //@ts-expect-error
@@ -54,7 +71,11 @@ const OtherUserUploadedPictures = ({
           </Text>
         </View>
       ) : (
-        <OtherUserPostsGrid otherUserPostsArray={otherUserPosts} />
+        <OtherUserPostsGrid
+          otherUserPostsArray={otherUserPosts}
+          loadingPhoto={loadingPhoto}
+          setOtherUserPosts={setOtherUserPosts}
+        />
       )}
     </View>
   );

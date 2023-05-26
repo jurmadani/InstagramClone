@@ -2,11 +2,22 @@ import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { firebase } from '../firebase'
 import { ProfilePicturePostsSlice } from '../Redux/ProfilePicturePostsSlice';
 
+interface OtherUserPostsInterface {
+    postID: string;
+    author: string;
+    comments: string[];
+    date: string;
+    description: string;
+    imageURL: string;
+    peopleThatLiked: string[];
+    timestamp: string;
+}
 
-export async function QueryUserPosts(
+export async function QueryOtherUserPosts(
     currentUserUsername: string,
-    dispatch: Dispatch<AnyAction>,
+    setOtherUserPosts: React.Dispatch<React.SetStateAction<OtherUserPostsInterface[]>>
 ) {
+    let shadowArray: OtherUserPostsInterface[] = []
     try {
         let numberOfPushes = 0;
         const result = (await firebase.firestore().collection('Posts').get()).docs
@@ -14,26 +25,14 @@ export async function QueryUserPosts(
         result.forEach(async post => {
             if (post.data().author === currentUserUsername) {
                 const postData = post.data()
-                //set redux global state
-
-                dispatch(ProfilePicturePostsSlice.actions.pushImageIntoArray({
-                    postID: post.id,
-                    imageURL: postData.imageURL,
-                    peopleThatLiked: postData.peopleThatLiked,
-                    comments: postData.comments,
-                    date: postData.date,
-                    description: postData.description,
-                    timestamp: postData.timestamp,
-                }))
-
-
-
+                //@ts-ignore
+                shadowArray.push(postData)
                 numberOfPushes = numberOfPushes + 1;
             }
 
         });
-        if (numberOfPushes === 0)
-            dispatch(ProfilePicturePostsSlice.actions.resetInitialState())
+        setOtherUserPosts(shadowArray)
+
 
         console.log('Query finished, and it found ' + numberOfPushes + " images that are in the ImagesArray Redux's Global state")
     } catch (error) {

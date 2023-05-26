@@ -17,6 +17,8 @@ import UserProfileScreen from "../Screens/OtherUserProfileScreen";
 import UserProfileScreenHeader from "../Components/OtherUserProfileScreenComponents/OtherUserProfileScreenHeader";
 import OtherUserProfileScreen from "../Screens/OtherUserProfileScreen";
 import OtherUserProfileScreenHeader from "../Components/OtherUserProfileScreenComponents/OtherUserProfileScreenHeader";
+import OtherUserProfilePostsScreenHeader from "../Components/OtherUserProfilePostsScreenComponents/OtherUserProfilePostsScreenHeader";
+import OtherUserProfilePostsScreen from "../Screens/OtherUserProfilePostsScreen";
 
 export type StackParams = {
   Login: any;
@@ -28,6 +30,7 @@ export type StackParams = {
   EditAccount: any;
   AddComment: any;
   OtherUserProfile: any;
+  OtherUserProfilePosts: any;
 };
 
 const Stack = createNativeStackNavigator<StackParams>();
@@ -106,6 +109,13 @@ const StackNavigator = () => {
         component={OtherUserProfileScreen}
         options={{
           header: ({ route }) => <OtherUserProfileScreenHeader route={route} />,
+        }}
+      />
+      <Stack.Screen
+        name="OtherUserProfilePosts"
+        component={OtherUserProfilePostsScreen}
+        options={{
+          header: () => <OtherUserProfilePostsScreenHeader />,
         }}
       />
     </Stack.Navigator>

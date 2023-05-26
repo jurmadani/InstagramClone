@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { Avatar, Divider } from "@ui-kitten/components";
 import Feather from "react-native-vector-icons/Feather";
-import { InstagramPostProps } from "./InstagramPost";
+import { InstagramPostProps } from "../HomeScreenComponents/InstagramPost";
 
 const MoreIcon = () => (
   <TouchableOpacity>
