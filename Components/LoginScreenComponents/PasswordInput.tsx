@@ -7,7 +7,6 @@ import {
 import React from "react";
 import { Input } from "@ui-kitten/components";
 import { windowWidth } from "../../Constants/Dimensions";
-//@ts-expect-error
 import EntypoIcon from "react-native-vector-icons/Entypo";
 
 interface PasswordInputProps {

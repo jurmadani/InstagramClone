@@ -1,8 +1,6 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
-//@ts-expect-error
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
-//@ts-expect-error
 import Feather from "react-native-vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";

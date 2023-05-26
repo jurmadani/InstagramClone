@@ -14,8 +14,9 @@ import EditAccountScreenHeader from "../Components/EditAccountScreenComponents/E
 import AddCommentScreen from "../Screens/AddCommentScreen";
 import AddCommentScreenHeader from "../Components/AddCommentScreenComponents/AddCommentScreenHeader";
 import UserProfileScreen from "../Screens/OtherUserProfileScreen";
-import UserProfileScreenHeader from "../Components/UserProfileScreenComponents/UserProfileScreenHeader";
+import UserProfileScreenHeader from "../Components/OtherUserProfileScreenComponents/OtherUserProfileScreenHeader";
 import OtherUserProfileScreen from "../Screens/OtherUserProfileScreen";
+import OtherUserProfileScreenHeader from "../Components/OtherUserProfileScreenComponents/OtherUserProfileScreenHeader";
 
 export type StackParams = {
   Login: any;
@@ -103,7 +104,9 @@ const StackNavigator = () => {
       <Stack.Screen
         name="OtherUserProfile"
         component={OtherUserProfileScreen}
-        options={{ header: ({route}) => <UserProfileScreenHeader route={route}/> }}
+        options={{
+          header: ({ route }) => <OtherUserProfileScreenHeader route={route} />,
+        }}
       />
     </Stack.Navigator>
   );

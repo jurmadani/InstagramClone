@@ -4,6 +4,7 @@ import { UserSlice } from "./User";
 import { SharePostSlice } from "./SharePostSlice";
 import { ProfilePicturePostsSlice } from "./ProfilePicturePostsSlice";
 import { EditAccountSlice } from "./EditAccoutSlice";
+import { OtherUserSlice } from "./OtherUser";
 
 export const Store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const Store = configureStore({
     SharePost: SharePostSlice.reducer,
     ProfilePosts: ProfilePicturePostsSlice.reducer,
     EditAccount: EditAccountSlice.reducer,
+    OtherUser: OtherUserSlice.reducer,
   },
 });

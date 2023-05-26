@@ -5,7 +5,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParams } from "../../Navigator/StackNavigator";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 
-const UserProfileScreenHeader = ({ route }: any) => {
+const OtherUserProfileScreenHeader = ({ route }: any) => {
   const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
 
   const GoBackArrowIcon = () => (
@@ -38,4 +38,4 @@ const UserProfileScreenHeader = ({ route }: any) => {
   );
 };
 
-export default UserProfileScreenHeader;
+export default OtherUserProfileScreenHeader;

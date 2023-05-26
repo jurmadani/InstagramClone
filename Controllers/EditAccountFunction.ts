@@ -11,9 +11,8 @@ interface EditAccountInputProps {
     newImageURI: string;
     newFullName: string;
     newDescription: string;
-
 }
-
+    
 interface UserProps {
     description: string;
     email: string;

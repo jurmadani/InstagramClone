@@ -68,9 +68,7 @@ const SearchFilter = ({ searchInput }: SearchFilterProps) => {
         )}
         <FlatList
           data={searchResults}
-          renderItem={({ item, index }) => (
-            <UserProfile item={item} key={index} />
-          )}
+          renderItem={({ item, index }) => <UserProfile item={item} />}
         />
       </View>
     );
