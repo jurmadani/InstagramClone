@@ -9,7 +9,6 @@ const OtherUserProfilePicture = () => {
     //@ts-ignore
     (state) => state.OtherUser.otherUser
   );
-
   return (
     <View style={{ margin: 20 }}>
       <ImageCache
