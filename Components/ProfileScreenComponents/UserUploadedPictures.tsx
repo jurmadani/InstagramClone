@@ -1,6 +1,5 @@
 import { View, Text } from "react-native";
 import React from "react";
-//@ts-expect-error
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import { windowHeight } from "../../Constants/Dimensions";
 import { useSelector } from "react-redux";

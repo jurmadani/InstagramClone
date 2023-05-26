@@ -19,14 +19,14 @@ const UserNumbers = () => {
       {/* Followers */}
       <View style={{ alignItems: "center", marginLeft: 30 }}>
         <Text style={{ fontWeight: "700", fontSize: 16 }}>
-          {user.followers}
+          {user.followers.length}
         </Text>
         <Text>Followers</Text>
       </View>
       {/* Following */}
       <View style={{ alignItems: "center", marginLeft: 30 }}>
         <Text style={{ fontWeight: "700", fontSize: 16 }}>
-          {user.following}
+          {user.following.length}
         </Text>
         <Text>Following</Text>
       </View>
