@@ -1,7 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-//@ts-expect-error
 import Ionicons from "react-native-vector-icons/Ionicons";
 import HomeScreen from "../Screens/HomeScreen";
 import SearchScreen from "../Screens/SearchScreen";
@@ -49,6 +48,7 @@ const BottomTabNavigator = () => {
 
           return (
             <Ionicons
+              //@ts-ignore
               name={iconName}
               size={28}
               color={color}
@@ -63,7 +63,11 @@ const BottomTabNavigator = () => {
         component={HomeScreen}
         options={{ header: () => <HomeScreenHeader /> }}
       />
-      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{ headerShown: false }}
+      />
       <Tab.Screen
         name="Add"
         component={AddPostScreen}
