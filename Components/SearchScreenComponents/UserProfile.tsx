@@ -25,7 +25,13 @@ interface UserProfileProps {
 const UserProfile = ({ key, item }: UserProfileProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("UserProfile")}>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate("OtherUserProfile", {
+          userInformation: item,
+        })
+      }
+    >
       <View
         style={{
           flexDirection: "row",

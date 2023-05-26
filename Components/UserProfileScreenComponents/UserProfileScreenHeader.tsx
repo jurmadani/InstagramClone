@@ -29,7 +29,9 @@ const UserProfileScreenHeader = ({ route }: any) => {
             flex: 1,
           }}
         >
-          <Text style={{ fontSize: 17, fontWeight: "600" }}>test</Text>
+          <Text style={{ fontSize: 17, fontWeight: "600" }}>
+            {route.params.userInformation.username}
+          </Text>
         </View>
       </View>
     </SafeAreaView>

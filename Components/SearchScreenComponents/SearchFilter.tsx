@@ -14,14 +14,19 @@ const SearchFilter = ({ searchInput }: SearchFilterProps) => {
   const [searchResults, setSearchResults] = useState([]);
   const [skeletonLoading, setSkeletonLoading] = useState(false);
   const [searchResultMessage, setSearchResultMessage] = useState("");
+
   useEffect(() => {
+    let debounceTimer: NodeJS.Timeout;
+
     const fetchData = async () => {
       setSkeletonLoading(true);
-      setTimeout(async () => {
+      clearTimeout(debounceTimer); // Clear any existing debounce timer
+
+      debounceTimer = setTimeout(async () => {
         try {
           const querySnapshot = await firebase
             .firestore()
-            .collection("Users") // Replace 'users' with your collection name
+            .collection("Users")
             .where("username", ">=", searchInput)
             .where("username", "<=", searchInput + "\uf8ff")
             .get();
@@ -34,7 +39,7 @@ const SearchFilter = ({ searchInput }: SearchFilterProps) => {
           console.error(error);
         }
         setSkeletonLoading(false);
-      }, 100);
+      }, 200);
     };
 
     if (searchInput !== "") {
@@ -42,31 +47,34 @@ const SearchFilter = ({ searchInput }: SearchFilterProps) => {
     } else {
       setSearchResults([]);
     }
+
+    return () => {
+      clearTimeout(debounceTimer); // Clear the debounce timer on component unmount or searchInput change
+    };
   }, [searchInput]);
 
-  if (searchInput === "")
-    //don't show nothing if user didn't typed nothing
+  if (searchInput === "") {
+    // Don't show anything if the user hasn't typed anything
     return <View></View>;
-  //fiter the database of user based on  search input and add skeleton ui for activity indicator
-  else
+  } else {
     return (
       <View>
         {skeletonLoading &&
           NumberOfSkeletons.map((index) => <SkeletonSearch index={index} />)}
-        {searchResultMessage != "" && (
+        {searchResultMessage !== "" && (
           <Text style={{ marginLeft: 15, fontWeight: "500", fontSize: 16 }}>
             {searchResultMessage}
           </Text>
         )}
         <FlatList
           data={searchResults}
-          //@ts-ignore
-          renderItem={(item, index) => (
-            <UserProfile item={item.item} key={index} />
+          renderItem={({ item, index }) => (
+            <UserProfile item={item} key={index} />
           )}
         />
       </View>
     );
+  }
 };
 
 export default SearchFilter;
