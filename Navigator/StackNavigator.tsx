@@ -21,6 +21,8 @@ import OtherUserProfilePostsScreenHeader from "../Components/OtherUserProfilePos
 import OtherUserProfilePostsScreen from "../Screens/OtherUserProfilePostsScreen";
 import NotificationsScreen from "../Screens/NotificationsScreen";
 import NotificationsScreenHeader from "../Components/NotificationsScreenComponents/NotificationsScreenHeader";
+import TopTabNavigator from "./TopTabNavigator";
+import TopTabNavigatorHeader from "../Components/TopTabNavigatorComponents/TopTabNavigatorHeader";
 
 export type StackParams = {
   Login: any;
@@ -34,6 +36,7 @@ export type StackParams = {
   OtherUserProfile: any;
   OtherUserProfilePosts: any;
   Notifications: any;
+  TopTabNav: any;
 };
 
 const Stack = createNativeStackNavigator<StackParams>();
@@ -126,6 +129,13 @@ const StackNavigator = () => {
         component={NotificationsScreen}
         options={{
           header: () => <NotificationsScreenHeader />,
+        }}
+      />
+      <Stack.Screen
+        name="TopTabNav"
+        component={TopTabNavigator}
+        options={{
+          header: ({ route }) => <TopTabNavigatorHeader route={route} />,
         }}
       />
     </Stack.Navigator>

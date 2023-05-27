@@ -1,8 +1,6 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React from "react";
-//@ts-expect-error
 import Ionicons from "react-native-vector-icons/Ionicons";
-//@ts-expect-error
 import Feather from "react-native-vector-icons/Feather";
 import { useSelector } from "react-redux";
 

@@ -10,6 +10,8 @@ import { firebase } from "../firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { UserSlice } from "../Redux/User";
 import { QueryUserPosts } from "../Controllers/QueryUserPosts";
+import Modal from "react-native-modal";
+import { windowHeight, windowWidth } from "../Constants/Dimensions";
 
 const ProfileScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -83,6 +85,7 @@ const ProfileScreen = () => {
       <Divider style={{ marginTop: 20, height: 1, marginBottom: 1 }} />
       {/* user pictures */}
       <UserUploadedPictures />
+      
     </ScrollView>
   );
 };
