@@ -8,9 +8,6 @@ import {
 } from "react-native";
 import React from "react";
 import InstagramTextLogoHeader from "./InstagramTextLogo";
-//@ts-expect-error
-import EvilIcons from "react-native-vector-icons/EvilIcons";
-//@ts-expect-error
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
 import { StackParams } from "../../Navigator/StackNavigator";
@@ -22,7 +19,10 @@ const HomeScreenHeader = () => {
   const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
 
   const HeartIcon = () => (
-    <TouchableOpacity style={{ marginRight: 19 }}>
+    <TouchableOpacity
+      style={{ marginRight: 19 }}
+      onPress={() => navigation.navigate("Notifications")}
+    >
       <MaterialCommunityIcons
         name="heart-outline"
         size={27}

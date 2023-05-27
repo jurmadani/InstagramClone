@@ -19,6 +19,8 @@ import OtherUserProfileScreen from "../Screens/OtherUserProfileScreen";
 import OtherUserProfileScreenHeader from "../Components/OtherUserProfileScreenComponents/OtherUserProfileScreenHeader";
 import OtherUserProfilePostsScreenHeader from "../Components/OtherUserProfilePostsScreenComponents/OtherUserProfilePostsScreenHeader";
 import OtherUserProfilePostsScreen from "../Screens/OtherUserProfilePostsScreen";
+import NotificationsScreen from "../Screens/NotificationsScreen";
+import NotificationsScreenHeader from "../Components/NotificationsScreenComponents/NotificationsScreenHeader";
 
 export type StackParams = {
   Login: any;
@@ -31,6 +33,7 @@ export type StackParams = {
   AddComment: any;
   OtherUserProfile: any;
   OtherUserProfilePosts: any;
+  Notifications: any;
 };
 
 const Stack = createNativeStackNavigator<StackParams>();
@@ -116,6 +119,13 @@ const StackNavigator = () => {
         component={OtherUserProfilePostsScreen}
         options={{
           header: () => <OtherUserProfilePostsScreenHeader />,
+        }}
+      />
+      <Stack.Screen
+        name="Notifications"
+        component={NotificationsScreen}
+        options={{
+          header: () => <NotificationsScreenHeader />,
         }}
       />
     </Stack.Navigator>
