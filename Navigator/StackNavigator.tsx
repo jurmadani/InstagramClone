@@ -86,9 +86,19 @@ const StackNavigator = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPasswordScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="BottomTabNav"
         component={BottomTabNavigator}
         options={{ headerShown: false, gestureEnabled: false }}
+      />
+      <Stack.Screen
+        name="Messages"
+        component={MessagesScreen}
+        options={{ header: () => <MessagesScreenHeader /> }}
       />
       <Stack.Screen
         name="UserProfilePosts"

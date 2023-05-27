@@ -3,6 +3,8 @@ import React from "react";
 import { Searchbar } from "react-native-paper";
 import { windowWidth } from "../Constants/Dimensions";
 import Message from "../Components/MessagesScreenComponents/Message";
+import { FlatList } from "react-native-gesture-handler";
+import { People } from "../dummy-test-data";
 
 const MessagesScreen = () => {
   return (
@@ -35,16 +37,12 @@ const MessagesScreen = () => {
           Messages
         </Text>
         {/* Message component */}
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
+        <FlatList
+          scrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          data={People}
+          renderItem={(item) => <Message item={item.item} />}
+        />
       </View>
     </ScrollView>
   );

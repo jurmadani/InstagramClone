@@ -2,6 +2,7 @@ export interface PeopleProps {
     id: number;
     nume: string;
     poza: any;
+    message?: string
 }
 
 export const People: PeopleProps[] = [
@@ -9,45 +10,46 @@ export const People: PeopleProps[] = [
         id: 1,
         nume: "maria_3",
         poza: require('./assets/Images/random-5.jpg'),
+        message: "Hey! How are you?",
     },
     {
         id: 2,
         nume: "zackjohn",
         poza: require('./assets/Images/random-6.jpg'),
-
-
+        message: "Just wanted to say hi!",
     },
     {
         id: 3,
         nume: "elliot_johsnon",
         poza: require('./assets/Images/dummy-picture-2.jpg'),
-
+        message: "Looking forward to catching up!",
     },
     {
         id: 4,
         nume: "maximus2303",
         poza: require('./assets/Images/random-1.jpg'),
-
+        message: "Long time no see. Let's meet up soon!",
     },
     {
         id: 5,
         nume: "alexandru0723",
         poza: require('./assets/Images/random-2.jpg'),
-
+        message: "Hope you're doing well!",
     },
     {
         id: 6,
         nume: "marius432",
         poza: require('./assets/Images/random-3.jpg'),
-
+        message: "What's new with you?",
     },
     {
         id: 7,
         nume: "alexx_2014",
         poza: require('./assets/Images/random-4.jpg'),
-
+        message: "I have a question for you. Can you help?",
     },
-]
+];
+
 
 export const data = [
     {
