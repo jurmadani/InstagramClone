@@ -3,12 +3,19 @@ import React from "react";
 import { Avatar, Divider } from "@ui-kitten/components";
 import { InstagramPostProps } from "./InstagramPost";
 import moment from "moment";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParams } from "../../Navigator/StackNavigator";
 
 const CommentsPostSection = ({
   comments,
   timestamp,
   date,
+  postID,
+  description,
+  username,
 }: InstagramPostProps) => {
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
   const getTimePassed = (timestamp: string, date: string) => {
     const currentDate = moment();
     const postDate = moment(`${date} ${timestamp}`, "D/M/YYYY HH:mm:ss");
@@ -39,7 +46,18 @@ const CommentsPostSection = ({
         </View>
       ) : (
         <View style={{ marginLeft: 15, marginTop: 5 }}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("AddComment", {
+                commentsArray: comments,
+                postOwner: username,
+                description: description,
+                timestamp: timestamp,
+                date: date,
+                postID: postID,
+              });
+            }}
+          >
             {/* Comment count */}
             <Text style={{ opacity: 0.2 }}>
               View all the {comments?.length} comments

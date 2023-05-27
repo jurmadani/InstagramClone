@@ -154,6 +154,9 @@ const PostFooter = ({
         comments={comments}
         timestamp={timestamp}
         date={date}
+        postID={postID}
+        description={description}
+        username={username}
       />
     </View>
   );

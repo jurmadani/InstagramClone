@@ -74,7 +74,8 @@ const AddCommentBox = ({
         ];
         //update comments array state
         setMutableArray(shadowArray);
-        setCommentsArrayState(shadowArray);
+        if (setCommentsArrayState != undefined)
+          setCommentsArrayState(shadowArray);
         console.log(shadowArray);
         //reset value from input
         setComment("");
