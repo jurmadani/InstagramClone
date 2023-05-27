@@ -10,6 +10,11 @@ import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { QueryUserPosts } from './QueryUserPosts';
 import { HomescreenPostsSlice } from '../Redux/HomescreenPosts';
 
+interface UsernameAndProfilePictureArrayProps {
+    username: string;
+    profilePictureURL: string;
+}
+
 export async function LoginFunction(
     email: string,
     password: string,
@@ -23,6 +28,7 @@ export async function LoginFunction(
         let username: string;
         let followingArray: string[]
         let homescreenPostsPushed = 0;
+        let userUsernameAndProfilePictureArray: UsernameAndProfilePictureArrayProps[] = []
         await firebase.auth().signInWithEmailAndPassword("test@yahoo.com", "test12");
         //login success : need to get user's information from firestore
         //get all the users
@@ -44,23 +50,35 @@ export async function LoginFunction(
                 username = user.data().username
                 followingArray = user.data().following;
 
+                const queryAllUsersTask = (await firebase.firestore().collection('Users').get()).docs
+                queryAllUsersTask.forEach(user => {
+                    const userData = user.data();
+                    userUsernameAndProfilePictureArray.push({
+                        username: userData.username,
+                        profilePictureURL: userData.profilePictureURL
+                    })
+                });
                 const queryAllPostsTask = (await firebase.firestore().collection('Posts').get()).docs
                 queryAllPostsTask.forEach(post => {
                     const postData = post.data();
                     if (followingArray.includes(postData.author)) {
-                        dispatch(HomescreenPostsSlice.actions.pushPostIntoArray({
-                            postID: post.id,
-                            imageURL: postData.imageURL,
-                            peopleThatLiked: postData.peopleThatLiked,
-                            comments: postData.comments,
-                            date: postData.date,
-                            description: postData.description,
-                            timestamp: postData.timestamp,
-                        }))
-                        homescreenPostsPushed = homescreenPostsPushed + 1;
+                        userUsernameAndProfilePictureArray.forEach(user => {
+                            if (user.username === postData.author) {
+                                dispatch(HomescreenPostsSlice.actions.pushPostIntoArray({
+                                    postID: post.id,
+                                    imageURL: postData.imageURL,
+                                    peopleThatLiked: postData.peopleThatLiked,
+                                    comments: postData.comments,
+                                    date: postData.date,
+                                    description: postData.description,
+                                    timestamp: postData.timestamp,
+                                    author: postData.author,
+                                    authorProfilePicture: user.profilePictureURL
+                                }))
+                                homescreenPostsPushed = homescreenPostsPushed + 1;
+                            }
+                        });
                     }
-
-
                 });
                 console.log(homescreenPostsPushed + " have been added to redux global state of home screen posts ")
                 //set the user image profile arrays

@@ -16,6 +16,8 @@ interface ImagePayload {
   date: string;
   description: string;
   timestamp: string;
+  author: string;
+  authorProfilePicture?: string;
 }
 
 interface HomescreenPostsState {
