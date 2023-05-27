@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { UserSlice } from '../Redux/User';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { QueryUserPosts } from './QueryUserPosts';
+import { HomescreenPostsSlice } from '../Redux/HomescreenPosts';
 
 export async function LoginFunction(
     email: string,
@@ -20,6 +21,8 @@ export async function LoginFunction(
     try {
 
         let username: string;
+        let followingArray: string[]
+        let homescreenPostsPushed = 0;
         await firebase.auth().signInWithEmailAndPassword("test@yahoo.com", "test12");
         //login success : need to get user's information from firestore
         //get all the users
@@ -37,7 +40,29 @@ export async function LoginFunction(
                     posts: user.data().posts,
                     description: user.data().description
                 }))
+
                 username = user.data().username
+                followingArray = user.data().following;
+
+                const queryAllPostsTask = (await firebase.firestore().collection('Posts').get()).docs
+                queryAllPostsTask.forEach(post => {
+                    const postData = post.data();
+                    if (followingArray.includes(postData.author)) {
+                        dispatch(HomescreenPostsSlice.actions.pushPostIntoArray({
+                            postID: post.id,
+                            imageURL: postData.imageURL,
+                            peopleThatLiked: postData.peopleThatLiked,
+                            comments: postData.comments,
+                            date: postData.date,
+                            description: postData.description,
+                            timestamp: postData.timestamp,
+                        }))
+                        homescreenPostsPushed = homescreenPostsPushed + 1;
+                    }
+
+
+                });
+                console.log(homescreenPostsPushed + " have been added to redux global state of home screen posts ")
                 //set the user image profile arrays
                 await QueryUserPosts(username, dispatch).then(() => {
                     console.log('The user has sucessfully logged in')
