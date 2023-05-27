@@ -131,7 +131,7 @@ const HomeScreen = () => {
           <Text style={{ fontSize: 23, fontWeight: "bold" }}>
             No posts available.
           </Text>
-          <Text style={{ opacity: 0.4, fontSize: 12, marginTop:5,}}>
+          <Text style={{ opacity: 0.4, fontSize: 12, marginTop: 5 }}>
             Start to follow people to see posts
           </Text>
         </View>
@@ -154,6 +154,7 @@ const HomeScreen = () => {
               postID={item.item.postID}
               date={item.item.date}
               timestamp={item.item.timestamp}
+              item={item.item}
             />
           )}
         />

@@ -18,6 +18,7 @@ export interface OtherUserInstagramPostProps {
   postID?: string;
   timestamp?: string;
   date?: string;
+  item?: any;
 }
 
 const OtherUserInstagramPost = ({
@@ -33,6 +34,7 @@ const OtherUserInstagramPost = ({
   postID,
   date,
   timestamp,
+  item,
 }: OtherUserInstagramPostProps) => {
   const [liked, setLiked] = useState(false);
   const [peopleThatLikedArrayState, setPeopleThatLikedArrayState] = useState<
@@ -63,7 +65,11 @@ const OtherUserInstagramPost = ({
       }}
     >
       {/* Post header */}
-      <PostHeader userAvatar={userAvatar} username={usernameOfUserThatPosted} />
+      <PostHeader
+        userAvatar={userAvatar}
+        username={usernameOfUserThatPosted}
+        item={item}
+      />
       {/* Content */}
       <PostContent
         imageContent={imageContent}

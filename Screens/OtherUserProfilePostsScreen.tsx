@@ -49,6 +49,7 @@ const OtherUserProfilePostsScreen = ({ route }: any) => {
   };
 
   const renderItem = ({ item, index }: any) => {
+    console.log(item);
     return (
       <OtherUserInstagramPost
         userAvatar={otherUser.profilePictureURL}
@@ -63,6 +64,7 @@ const OtherUserProfilePostsScreen = ({ route }: any) => {
         postID={item.postID}
         timestamp={item.timestamp}
         date={item.date}
+        item={item}
       />
     );
   };
