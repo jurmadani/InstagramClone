@@ -91,11 +91,29 @@ export async function LoginFunction(
                 //@ts-ignore
                 const uniqueNotifications = [];
                 const uniquePictureLikedSet = new Set();
+                const uniqueSenderPictureSet = new Set();
 
                 queryAllNotificationsTask.forEach((notification) => {
                     const notificationData = notification.data();
                     if (notificationData.receiver === username) {
-                        if (!uniquePictureLikedSet.has(notificationData.pictureThatSenderLiked)) {
+                        if (
+                            notificationData.notificationType === 'Follow' &&
+                            !uniqueSenderPictureSet.has(notificationData.senderProfilePictureURL)
+                        ) {
+                            uniqueNotifications.push({
+                                receiver: username,
+                                sender: notificationData.sender,
+                                notificationType: notificationData.notificationType,
+                                senderProfilePictureURL: notificationData.senderProfilePictureURL,
+                                pictureThatSenderLiked: notificationData.pictureThatSenderLiked,
+                                date: notificationData.date,
+                                timestamp: notificationData.timestamp,
+                            });
+                            uniqueSenderPictureSet.add(notificationData.senderProfilePictureURL);
+                        } else if (
+                            notificationData.notificationType !== 'Follow' &&
+                            !uniquePictureLikedSet.has(notificationData.pictureThatSenderLiked)
+                        ) {
                             uniqueNotifications.push({
                                 receiver: username,
                                 sender: notificationData.sender,
@@ -109,6 +127,7 @@ export async function LoginFunction(
                         }
                     }
                 });
+
                 //@ts-ignore
                 uniqueNotifications.forEach((notification) => {
                     dispatch(NotificationsSlice.actions.pushNotificationIntoArray(notification));
