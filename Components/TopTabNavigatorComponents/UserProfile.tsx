@@ -1,10 +1,32 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import ImageCache from "../../Controllers/ImageCache";
+import { useDispatch, useSelector } from "react-redux";
+import { OtherUserSlice } from "../../Redux/OtherUser";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParams } from "../../Navigator/StackNavigator";
 
 const UserProfile = ({ item }: any) => {
+  const dispatch = useDispatch();
+  const user = useSelector(
+    (state) =>
+      //@ts-ignore
+      state.User.user
+  );
+  const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        dispatch(OtherUserSlice.actions.setOtherUser(item.item));
+        if (item.item.username != user.username)
+          navigation.navigate("OtherUserProfile", {
+            userInformation: item.item,
+          });
+        //@ts-ignore
+        else navigation.navigate("Profile");
+      }}
+    >
       <View
         style={{
           flexDirection: "row",
