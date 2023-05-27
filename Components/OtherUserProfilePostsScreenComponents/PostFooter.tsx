@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 //@ts-ignores
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { firebase } from "../../firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ProfilePicturePostsSlice } from "../../Redux/ProfilePicturePostsSlice";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -23,6 +23,7 @@ export interface ExtendedInstagramPostProps
   setCommentsArrayState: React.Dispatch<
     React.SetStateAction<CommentsArrayMutableProps[]>
   >;
+  setPeopleThatLiked?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const SendPostIcon = () => (
@@ -63,7 +64,19 @@ const PostFooter = ({
   date,
   usernameOfCurrentUserLoggedIn,
   setCommentsArrayState,
+  setPeopleThatLiked,
+  imageContent,
 }: ExtendedInstagramPostProps) => {
+  const otherUser = useSelector(
+    (state) =>
+      //@ts-ignore
+      state.OtherUser.otherUser
+  );
+  const currentUserLoggedin = useSelector(
+    (state) =>
+      //@ts-ignore
+      state.User.user
+  );
   //navigation hook
   const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
   const CommentIcon = () => (
@@ -93,7 +106,8 @@ const PostFooter = ({
           usernameOfCurrentUserLoggedIn != undefined &&
           postID != undefined &&
           peopleThatLiked != undefined &&
-          setLiked != undefined
+          setLiked != undefined &&
+          setPeopleThatLiked != undefined
         ) {
           if (liked === false) {
             //like functionality
@@ -107,6 +121,35 @@ const PostFooter = ({
               postID,
               tempArray
             );
+
+            //get now date
+            var date = new Date().getDate(); //Current Date
+            var month = new Date().getMonth() + 1; //Current Month
+            var year = new Date().getFullYear(); //Current Year
+            var hours = new Date().getHours(); //Current Hours
+            var min = new Date().getMinutes(); //Current Minutes
+            var sec = new Date().getSeconds(); //Current Seconds
+
+            //add notification doc into firestore
+            await firebase
+              .firestore()
+              .collection("Notifications")
+              .add({
+                receiver: otherUser.username,
+                sender: usernameOfCurrentUserLoggedIn,
+                notificationType: "Like",
+                senderProfilePictureURL: currentUserLoggedin.profilePictureURL,
+                pictureThatSenderLiked: imageContent,
+                date: date + "/" + month + "/" + year,
+                timestamp: hours + ":" + min + ":" + sec,
+              })
+              .then(() =>
+                console.log("Notification like doc added to firestore")
+              );
+
+            //update people that liked array
+            setPeopleThatLiked(tempArray);
+
             setLiked(true);
           } else {
             //unlike functionality
@@ -130,7 +173,8 @@ const PostFooter = ({
                 peopleThatLiked: tempArray,
               })
             );
-
+            //update people that liked array
+            setPeopleThatLiked(tempArray);
             setLiked(false);
           }
         }

@@ -6,6 +6,7 @@ import { ProfilePicturePostsSlice } from "./ProfilePicturePostsSlice";
 import { EditAccountSlice } from "./EditAccoutSlice";
 import { OtherUserSlice } from "./OtherUser";
 import { HomescreenPostsSlice } from "./HomescreenPosts";
+import { NotificationsSlice } from "./NotificationsSlice";
 
 export const Store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const Store = configureStore({
     EditAccount: EditAccountSlice.reducer,
     OtherUser: OtherUserSlice.reducer,
     HomescreenPosts: HomescreenPostsSlice.reducer,
+    Notifications: NotificationsSlice.reducer,
   },
 });

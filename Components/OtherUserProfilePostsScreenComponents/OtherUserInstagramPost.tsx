@@ -87,6 +87,8 @@ const OtherUserInstagramPost = ({
         setLiked={setLiked}
         date={date}
         timestamp={timestamp}
+        setPeopleThatLiked={setPeopleThatLikedArrayState}
+        imageContent={imageContent}
       />
     </View>
   );

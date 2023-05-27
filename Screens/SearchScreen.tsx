@@ -3,19 +3,12 @@ import React, { useState, useEffect } from "react";
 import { SearchBar } from "@rneui/base";
 import { Skeleton } from "@rneui/themed";
 import SearchFilter from "../Components/SearchScreenComponents/SearchFilter";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParams } from "../Navigator/StackNavigator";
 
 const SearchScreen = () => {
   const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    const unsubscribe = Keyboard.addListener("keyboardDidHide", () => {
-      setSearch(""); // Reset the search input to an empty string
-    });
-
-    return () => {
-      unsubscribe.remove(); // Clean up the event listener on component unmount
-    };
-  }, []);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
