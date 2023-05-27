@@ -46,8 +46,8 @@ const SkipAddingPhotoButton = () => {
           username: currentUserInformation.username,
           fullName: currentUserInformation.fullName,
           profilePictureURL: url,
-          followers: 0,
-          following: 0,
+          followers: [],
+          following: [],
           posts: 0,
         });
       //set user global state
@@ -57,8 +57,8 @@ const SkipAddingPhotoButton = () => {
           fullName: currentUserInformation.fullName,
           profilePictureURL: url,
           username: currentUserInformation.username,
-          followers: 0,
-          following: 0,
+          followers: [],
+          following: [],
           posts: 0,
         })
       );

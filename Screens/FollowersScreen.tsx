@@ -45,7 +45,9 @@ const FollowersScreen = ({ route }: any) => {
           style={{ alignSelf: "center", marginTop: 5 }}
         />
       ) : followers.length === 0 ? (
-        <Text>No followers found.</Text>
+        <Text style={{ alignSelf: "center", marginTop: 20, fontSize: 16 }}>
+          No followers found
+        </Text>
       ) : (
         <FlatList
           data={followers}

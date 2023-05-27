@@ -9,7 +9,7 @@ interface NormalStoryImageProp {
 
 const NormalStoryImage = ({ item }: NormalStoryImageProp) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity >
       <View style={{ marginLeft: 20 }}>
         <View
           style={{

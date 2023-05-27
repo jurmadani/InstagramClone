@@ -15,6 +15,8 @@ const CameraIcon = () => <Feather name="camera" size={55} />;
 
 const SignupStep5 = () => {
   const [image, setImage] = useState("");
+  const [shareProfilePictureAsFirstPost, setShareProfilePictureAsFirstPost] =
+    useState(false);
   return (
     <View>
       {/*  Add profile photo icon*/}
@@ -75,7 +77,10 @@ const SignupStep5 = () => {
       {image != "" && (
         <View>
           <ChangePhotoButton setImage={setImage} />
-          <ShareProfilePicture />
+          <ShareProfilePicture
+            isEnabled={shareProfilePictureAsFirstPost}
+            setIsEnabled={setShareProfilePictureAsFirstPost}
+          />
           {/* Description text */}
           <Text
             style={{
@@ -95,7 +100,10 @@ const SignupStep5 = () => {
             placeholder="Next"
             width={windowWidth - 70}
             actionType="FinishSignupWithUserChosenAvatar"
-            actionPayload={{ image: image }}
+            actionPayload={{
+              image: image,
+              shareProfilePictureAsFirstPost: shareProfilePictureAsFirstPost,
+            }}
           />
         </View>
       )}

@@ -1,8 +1,15 @@
-import { View, Text, Switch } from "react-native";
+import { View, Text, Switch, Share } from "react-native";
 import React, { useState } from "react";
 
-const ShareProfilePicture = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
+interface ShareProfilePictureProps {
+  isEnabled: boolean;
+  setIsEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ShareProfilePicture = ({
+  isEnabled,
+  setIsEnabled,
+}: ShareProfilePictureProps) => {
   const toggleSwitch = () =>
     setIsEnabled((previousState: boolean) => !previousState);
   return (

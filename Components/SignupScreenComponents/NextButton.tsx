@@ -10,6 +10,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParams } from "../../Navigator/StackNavigator";
 import SettingUpModal from "./SignupStep5Components/SettingUpModal";
 import { UserSlice } from "../../Redux/User";
+import uuid from "react-native-uuid";
 
 interface NextButtonProps {
   placeholder: string;
@@ -21,6 +22,7 @@ interface NextButtonProps {
     password?: string;
     username?: string;
     image?: string;
+    shareProfilePictureAsFirstPost?: boolean;
   };
 }
 
@@ -285,8 +287,8 @@ const NextButton = ({
               username: currentUserInformation.username,
               fullName: currentUserInformation.fullName,
               profilePictureURL: url,
-              followers: 0,
-              following: 0,
+              followers: [],
+              following: [],
               posts: 0,
             });
           //set user global state
@@ -296,11 +298,76 @@ const NextButton = ({
               fullName: currentUserInformation.fullName,
               profilePictureURL: url,
               username: currentUserInformation.username,
-              followers: 0,
-              following: 0,
+              followers: [],
+              following: [],
               posts: 0,
             })
           );
+          //share post if user decided
+          if (actionPayload.shareProfilePictureAsFirstPost === true) {
+            //get now date
+            var date = new Date().getDate(); //Current Date
+            var month = new Date().getMonth() + 1; //Current Month
+            var year = new Date().getFullYear(); //Current Year
+            var hours = new Date().getHours(); //Current Hours
+            var min = new Date().getMinutes(); //Current Minutes
+            var sec = new Date().getSeconds(); //Current Seconds
+
+            //upload the picture to storage
+
+            //@ts-ignore
+            const response = await fetch(actionPayload.image);
+            const blob = await response.blob();
+
+            const uniqueIDForStorageFile = uuid.v4();
+
+            var uploadTask = firebase
+              .storage()
+              .ref("Posts")
+              .child(uniqueIDForStorageFile.toString())
+              .put(blob);
+
+            //upload the picture to firebase
+            await uploadTask;
+
+            //getDownloadURL
+            const urlRef = firebase
+              .storage()
+              .ref("Posts")
+              .child(uniqueIDForStorageFile.toString());
+
+            const url = (await urlRef.getDownloadURL()).toString();
+            //upload the post to firestore
+            await firebase
+              .firestore()
+              .collection("Posts")
+              .add({
+                author: currentUserInformation.username,
+                date: date + "/" + month + "/" + year,
+                timestamp: hours + ":" + min + ":" + sec,
+                description: "My first picture on Instagram-Clone!",
+                imageURL: url,
+                peopleThatLiked: [],
+                comments: [],
+              });
+            //update the posts number for the user in database
+            //get the user post number
+            const currentUserPostsNumber = (
+              await firebase
+                .firestore()
+                .collection("Users")
+                .doc(currentUserInformation.username)
+                .get()
+            ).data()?.posts;
+
+            await firebase
+              .firestore()
+              .collection("Users")
+              .doc(currentUserInformation.username)
+              .update({
+                posts: currentUserPostsNumber + 1,
+              });
+          }
           //navigate to homescreen
           navigation.navigate("BottomTabNav");
         } catch (error) {
