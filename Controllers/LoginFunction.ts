@@ -31,13 +31,13 @@ export async function LoginFunction(
         let homescreenPostsPushed = 0;
         let notificationsPushed = 0;
         let userUsernameAndProfilePictureArray: UsernameAndProfilePictureArrayProps[] = []
-        await firebase.auth().signInWithEmailAndPassword("test@yahoo.com", "test12");
+        await firebase.auth().signInWithEmailAndPassword("d_jurma@yahoo.com", "test12");
         //login success : need to get user's information from firestore
         //get all the users
         const result = (await firebase.firestore().collection('Users').get()).docs
         //loop through the docs and find the user in the db and dispatch a action to set the user global state
         result.forEach(async user => {
-            if (user.data().email != undefined && user.data().email === "test@yahoo.com") {
+            if (user.data().email != undefined && user.data().email === "d_jurma@yahoo.com") {
                 dispatch(UserSlice.actions.setUser({
                     email: user.data().email,
                     fullName: user.data().fullName,

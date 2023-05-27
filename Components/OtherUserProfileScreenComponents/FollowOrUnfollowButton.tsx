@@ -80,6 +80,29 @@ const onPressHandler = async (
         console.log("Updated other user followers array");
       });
 
+    //get now date
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+
+    //add notification doc into firestore
+    await firebase
+      .firestore()
+      .collection("Notifications")
+      .add({
+        receiver: otherUser.username,
+        sender: currentUserLoggedIn.username,
+        notificationType: "Follow",
+        senderProfilePictureURL: currentUserLoggedIn.profilePictureURL,
+        pictureThatSenderLiked: null,
+        date: date + "/" + month + "/" + year,
+        timestamp: hours + ":" + min + ":" + sec,
+      })
+      .then(() => console.log("Notification follow doc added to firestore"));
+
     //setCurrentUserLoggedinFollowOtherUser
     console.log(
       "Follow functionality for " +

@@ -25,6 +25,41 @@ const getTimePassed = (timestamp: string, date: string) => {
   }
 };
 
+const NotificationFollow = ({ notification }: NotificationProp) => {
+  let timePassed;
+  if (notification.date != undefined && notification.timestamp != undefined) {
+    timePassed = getTimePassed(notification.timestamp, notification.date);
+  }
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+    >
+      {/* Picture of user that liked photo */}
+      <ImageCache
+        //@ts-ignore
+        uri={notification.senderProfilePictureURL}
+        height={50}
+        width={50}
+        borderRadius={99}
+        margin={10}
+        imageType="Notification sender profile picture"
+      />
+      <Text style={{ width: windowWidth / 1.9, textAlign: "left" }}>
+        <Text style={{ fontWeight: "bold" }}>{notification.sender}</Text>
+        <Text>
+          {" "}
+          started following you •{" "}
+          <Text style={{ opacity: 0.3 }}>{timePassed}</Text>
+        </Text>
+        <Text></Text>
+      </Text>
+    </View>
+  );
+};
+
 const NotificationLike = ({ notification }: NotificationProp) => {
   let timePassed;
   if (notification.date != undefined && notification.timestamp != undefined) {
@@ -74,7 +109,7 @@ const Notification = ({ notification }: NotificationProp) => {
       {notification.notificationType === "Like" ? (
         <NotificationLike notification={notification} />
       ) : (
-        <Text>Follow</Text>
+        <NotificationFollow notification={notification} />
       )}
     </View>
   );
