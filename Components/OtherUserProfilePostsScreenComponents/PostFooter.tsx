@@ -33,7 +33,6 @@ const SendPostIcon = () => (
 );
 
 export const LikePostFunction = async (
-  username: string,
   postID: string,
   peopleThatLiked: string[]
 ) => {
@@ -43,7 +42,6 @@ export const LikePostFunction = async (
 };
 
 export const UnlikePostFunction = async (
-  username: string,
   postID: string,
   peopleThatLiked: string[]
 ) => {
@@ -116,11 +114,7 @@ const PostFooter = ({
             tempArray.push(usernameOfCurrentUserLoggedIn); // Modify the copied array
             // push your name into the peopleThatLiked array
             // update firestore
-            await LikePostFunction(
-              usernameOfCurrentUserLoggedIn,
-              postID,
-              tempArray
-            );
+            await LikePostFunction(postID, tempArray);
 
             //get now date
             var date = new Date().getDate(); //Current Date
@@ -135,7 +129,10 @@ const PostFooter = ({
               .firestore()
               .collection("Notifications")
               .add({
-                receiver: otherUser.username,
+                receiver:
+                  otherUser === null
+                    ? usernameOfUserThatPosted
+                    : otherUser.username,
                 sender: usernameOfCurrentUserLoggedIn,
                 notificationType: "Like",
                 senderProfilePictureURL: currentUserLoggedin.profilePictureURL,
@@ -161,11 +158,7 @@ const PostFooter = ({
             tempArray.splice(userIndex, 1);
 
             // update firestore
-            await UnlikePostFunction(
-              usernameOfCurrentUserLoggedIn,
-              postID,
-              tempArray
-            );
+            await UnlikePostFunction(postID, tempArray);
             //update redux
             dispatch(
               ProfilePicturePostsSlice.actions.removePeopleThatLiked({

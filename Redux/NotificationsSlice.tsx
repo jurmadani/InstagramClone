@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface NotificationPayload {
+export interface NotificationPayload {
   receiver?: string;
   sender?: string;
   notificationType?: string;
   senderProfilePictureURL?: string;
   pictureThatSenderLiked?: string;
-  date?:string;
-  timestamp?:string;
+  date?: string;
+  timestamp?: string;
 }
 
 interface NotificationsState {
@@ -31,5 +31,6 @@ export const NotificationsSlice = createSlice({
     resetInitialState: (state) => {
       state.notificationsArray = [];
     },
+    removeDuplicateNotificationsFromArray: (state, action) => {},
   },
 });

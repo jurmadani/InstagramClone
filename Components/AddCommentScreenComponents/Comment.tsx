@@ -18,7 +18,7 @@ interface CommentProps {
 }
 
 const Comment = ({ commentObject }: CommentProps) => {
-  const getTimePassed = (timestamp: string, date: string) => {
+    const getTimePassed = (timestamp: string, date: string) => {
     const currentDate = moment();
     const postDate = moment(`${date} ${timestamp}`, "D/M/YYYY HH:mm:ss");
     const timeDiffMinutes = currentDate.diff(postDate, "minutes");

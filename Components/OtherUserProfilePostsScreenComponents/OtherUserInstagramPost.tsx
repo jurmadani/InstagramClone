@@ -73,6 +73,7 @@ const OtherUserInstagramPost = ({
         username={usernameOfCurrentUserLoggedIn}
         liked={liked}
         setLiked={setLiked}
+        usernameOfUserThatPosted={usernameOfUserThatPosted}
       />
       {/* Post footer */}
       <PostFooter

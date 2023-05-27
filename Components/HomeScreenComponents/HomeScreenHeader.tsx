@@ -12,11 +12,18 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { useNavigation } from "@react-navigation/native";
 import { StackParams } from "../../Navigator/StackNavigator";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Badge } from "@rneui/themed";
+import { useSelector } from "react-redux";
 
 const HomeScreenHeader = () => {
   const theme = useColorScheme();
   const isDarkTheme = theme === "dark";
   const navigation = useNavigation<NativeStackNavigationProp<StackParams>>();
+  const notifications = useSelector(
+    (state) =>
+      //@ts-ignore
+      state.Notifications.notificationsArray
+  );
 
   const HeartIcon = () => (
     <TouchableOpacity
@@ -28,6 +35,13 @@ const HomeScreenHeader = () => {
         size={27}
         color={isDarkTheme ? "white" : "black"}
       />
+      {notifications.length != 0 && (
+        <Badge
+          status="error"
+          value={notifications.length}
+          containerStyle={{ position: "absolute", bottom: 12, left: 16 }}
+        />
+      )}
     </TouchableOpacity>
   );
 

@@ -9,6 +9,7 @@ import { UserSlice } from '../Redux/User';
 import { AnyAction, Dispatch } from '@reduxjs/toolkit';
 import { QueryUserPosts } from './QueryUserPosts';
 import { HomescreenPostsSlice } from '../Redux/HomescreenPosts';
+import { NotificationsSlice } from '../Redux/NotificationsSlice';
 
 interface UsernameAndProfilePictureArrayProps {
     username: string;
@@ -28,6 +29,7 @@ export async function LoginFunction(
         let username: string;
         let followingArray: string[]
         let homescreenPostsPushed = 0;
+        let notificationsPushed = 0;
         let userUsernameAndProfilePictureArray: UsernameAndProfilePictureArrayProps[] = []
         await firebase.auth().signInWithEmailAndPassword("test@yahoo.com", "test12");
         //login success : need to get user's information from firestore
@@ -49,7 +51,7 @@ export async function LoginFunction(
 
                 username = user.data().username
                 followingArray = user.data().following;
-
+                //populate the userUsernameAndProfilePictureArray
                 const queryAllUsersTask = (await firebase.firestore().collection('Users').get()).docs
                 queryAllUsersTask.forEach(user => {
                     const userData = user.data();
@@ -58,6 +60,7 @@ export async function LoginFunction(
                         profilePictureURL: userData.profilePictureURL
                     })
                 });
+                //set redux global satte for homescrenn posts
                 const queryAllPostsTask = (await firebase.firestore().collection('Posts').get()).docs
                 queryAllPostsTask.forEach(post => {
                     const postData = post.data();
@@ -81,7 +84,43 @@ export async function LoginFunction(
                     }
                 });
                 console.log(homescreenPostsPushed + " have been added to redux global state of home screen posts ")
+
+                //query all notifications for user that logs in
+                const queryAllNotificationsTask = (await firebase.firestore().collection('Notifications').get()).docs;
+
+                //@ts-ignore
+                const uniqueNotifications = [];
+                const uniquePictureLikedSet = new Set();
+
+                queryAllNotificationsTask.forEach((notification) => {
+                    const notificationData = notification.data();
+                    if (notificationData.receiver === username) {
+                        if (!uniquePictureLikedSet.has(notificationData.pictureThatSenderLiked)) {
+                            uniqueNotifications.push({
+                                receiver: username,
+                                sender: notificationData.sender,
+                                notificationType: notificationData.notificationType,
+                                senderProfilePictureURL: notificationData.senderProfilePictureURL,
+                                pictureThatSenderLiked: notificationData.pictureThatSenderLiked,
+                                date: notificationData.date,
+                                timestamp: notificationData.timestamp,
+                            });
+                            uniquePictureLikedSet.add(notificationData.pictureThatSenderLiked);
+                        }
+                    }
+                });
+                //@ts-ignore
+                uniqueNotifications.forEach((notification) => {
+                    dispatch(NotificationsSlice.actions.pushNotificationIntoArray(notification));
+                });
+
+                const notificationsPushed = uniqueNotifications.length;
+                console.log(notificationsPushed + " have been added to the Redux global state of notifications");
+
+
+
                 //set the user image profile arrays
+                //query own user profile posts
                 await QueryUserPosts(username, dispatch).then(() => {
                     console.log('The user has sucessfully logged in')
                     //navigate to homescreen

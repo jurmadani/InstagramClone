@@ -19,6 +19,7 @@ interface ExtendedInstagramPostProps extends InstagramPostProps {
   liked: boolean;
   setLiked: React.Dispatch<React.SetStateAction<boolean>>;
   setPeopleThatLiked: React.Dispatch<React.SetStateAction<string[]>>;
+  usernameOfUserThatPosted?: string;
 }
 
 const PostContent = ({
@@ -29,6 +30,7 @@ const PostContent = ({
   liked,
   setLiked,
   setPeopleThatLiked,
+  usernameOfUserThatPosted,
 }: ExtendedInstagramPostProps) => {
   const [likePlaceholder, setLikePlaceholder] = useState(false);
   const otherUser = useSelector(
@@ -96,7 +98,10 @@ const PostContent = ({
             .firestore()
             .collection("Notifications")
             .add({
-              receiver: otherUser.username,
+              receiver:
+                otherUser === null
+                  ? usernameOfUserThatPosted
+                  : otherUser.username,
               sender: username,
               notificationType: "Like",
               senderProfilePictureURL: currentUserLoggedin.profilePictureURL,
