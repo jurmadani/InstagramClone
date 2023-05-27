@@ -37,8 +37,16 @@ const TopTabNavigator = ({ route }: any) => {
         },
       })}
     >
-      <Tab.Screen name="Followers" component={FollowersScreen} />
-      <Tab.Screen name="Following" component={FollowingScreen} />
+      <Tab.Screen
+        name="Followers"
+        component={FollowersScreen}
+        initialParams={{ route }}
+      />
+      <Tab.Screen
+        name="Following"
+        component={FollowingScreen}
+        initialParams={{ route }}
+      />
     </Tab.Navigator>
   );
 };
