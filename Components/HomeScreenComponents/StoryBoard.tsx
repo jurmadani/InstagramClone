@@ -4,7 +4,6 @@ import AddStoryImage from "./AddStoryImage";
 import { People } from "../../dummy-test-data";
 import NormalStoryImage from "./NormalStoryImage";
 
-
 const StoryBoard = () => {
   return (
     <ScrollView

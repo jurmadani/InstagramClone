@@ -10,6 +10,7 @@ const AddStoryImage = () => {
     //@ts-expect-error
     (state) => state.User.user
   );
+
   return (
     <TouchableOpacity style={{ margin: Platform.OS === "android" ? 5 : 0 }}>
       <View
